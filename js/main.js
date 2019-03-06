@@ -13,5 +13,6 @@ function loadPage(page) {
 
 /* Function that logs user in */
 function login() {
+	console.log('hi');
 	$('.modal-overlay').fadeToggle();
 }
