@@ -1,0 +1,15 @@
+
+<h1>This is the Multiple choice entry page</h1>
+
+<% questions.forEach(function(question){ %>
+    <div>
+        
+       <h4> <%= question.question %></h4>
+       <h4><input type = "radio" value ="A" <%= question.option_A  %>> </h4>
+       <h4><input type = "radio" value ="B" <%= question.option_B  %>> </h4>
+       <h4><input type = "radio" value ="C" <%= question.option_C  %>> </h4>
+       <h4><input type = "radio" value ="D" <%= question.option_D  %>></h4>
+        
+    </div>
+    
+<% }); %>
