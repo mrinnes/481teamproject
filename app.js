@@ -2,6 +2,7 @@ var express         = require("express"),
         app         = express(),
  bodyParser         = require("body-parser"),
    mongoose         = require("mongoose"),
+   open             = require("opn"),
      Questions       = require("./models/MultiChoice.js");
      var router      = express.Router();
    app.use(express.static(__dirname + "/public"));
@@ -57,8 +58,9 @@ app.post("/SchoolEntryFourm", function(req, res){
 
 */
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.PORT || 3000, process.env.IP, function(){
     console.log("Icompute Server has Started");
+    open('http://localhost:3000');
 });
 
 
