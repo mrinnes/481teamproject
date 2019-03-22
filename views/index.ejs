@@ -8,18 +8,18 @@
 		<script src="../js/main.js"></script>
 	</head>
 
-	<body class="interface">			
+	<body class="interface">
 <!--		<div class="modal-overlay">
 			<div class="modal-container shadow">
 				<form>
 					<h3>Sign in</h3>
-					
+
 					<label for="username">Username</label>
 					<input type="text" class="form-control" id="username">
-					
+
 					<label for="password">Password</label>
 					<input type="password" class="form-control" id="fapassword">
-					
+
 					<div class="text-right">
 						<button class="btn btn-primary" onclick="login()">Login</button>
 					</div>
@@ -27,33 +27,11 @@
 			</div>
 		</div> -->
 
-		<header class="shadow">
-			<a href="#" onclick="toggleSidebar()">
-				<img id="header-logo" src="images/icompute-logo.png" alt="iCompute logo">
-			</a>
+		<% include ./header %>
 
-			<ul class="list-unstyled">
-				<li><a href="#">Help</a></li>
-				<li><a href="#" onclick="login()">Log In</a></li>
-			</ul>
-		</header>
- 
 		<div class="wrapper">
-			<nav id="sidebar">						
-				<ul class="list-unstyled">
-            		<h5>Questions</h5>
-            		<li>
-            			<a href="/Questionnew">Add multiple choice question</a>
-            		</li>
-            		<li>
-                		<a href="/examplemultiplechoice">multiple choice</a>
-            		</li>
-            		<li>
-                		<a href="/exampleshortanswer">short answer</a>
-            		</li>
-        		</ul>
-			</nav>
-			
+			<% include ./sidebar %>
+
 			<div id="main-content-area">
 				<div class="demo container">
 					<h2>iCompute Demo</h2>

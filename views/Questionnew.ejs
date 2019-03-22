@@ -1,25 +1,44 @@
 
-<h1>Create a new multiple new choice Question</h1>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" href="/style.css">
+		<script src="../jquery-3.3.1.min.js"></script>
+		<script src="../js/main.js"></script>
+	</head>
 
-<form  action="/examplemultiplechoice" method="POST">
-    
-    <input type="text" name="ID" placeholder="QuestionID">
-    <p></p>
-    <input type="text" name="question" placeholder="enter the question you want asked on the exam">
-    <p></p>
-    <input type="text" name="option_A" placeholder="Enter a option for multiple choice question ">
-    <p></p>
-    <input type="text" name="option_B" placeholder="Enter a option for multiple choice question ">
-    <p></p>
-    <input type="text" name="option_C" placeholder="Enter a option for multiple choice question ">
-    <p></p>
-    <input type="text" name="option_D" placeholder="Enter a option for multiple choice question ">
-    <p></p>
-    <input type="text" name="correct_option" placeholder="please enter the letter for the answer ">
-    <p></p>
-    <button type ="Submit">Submit!</button>
-            
-    
-   
- 
- 
+	<body class="interface">
+    <% include ./header %>
+
+		<div class="wrapper">
+			<% include ./sidebar %>
+
+			<div id="main-content-area">
+				<div class="container">
+          <h1>Create a new multiple new choice Question</h1>
+
+          <form  action="/examplemultiplechoice" method="POST">
+
+              <input type="text" name="ID" placeholder="QuestionID">
+              <p></p>
+              <input type="text" name="question" placeholder="enter the question you want asked on the exam">
+              <p></p>
+              <input type="text" name="option_A" placeholder="Enter a option for multiple choice question ">
+              <p></p>
+              <input type="text" name="option_B" placeholder="Enter a option for multiple choice question ">
+              <p></p>
+              <input type="text" name="option_C" placeholder="Enter a option for multiple choice question ">
+              <p></p>
+              <input type="text" name="option_D" placeholder="Enter a option for multiple choice question ">
+              <p></p>
+              <input type="text" name="correct_option" placeholder="please enter the letter for the answer ">
+              <p></p>
+              <button type ="Submit">Submit!</button>
+          </form>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
