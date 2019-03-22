@@ -7,8 +7,8 @@ var express         = require("express"),
    app.use(express.static(__dirname + "/public"));
    app.use(express.static(__dirname + "/views"));
  app.use(express.static(__dirname + "/models"));
-   
-mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });   
+
+mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 
@@ -29,10 +29,6 @@ var SchoolTeamSchema = new mongoose.Schema({
 });
 
 var Team = mongoose.model("Team", SchoolTeamSchema);
-
-app.get("/", function(req, res){
-    res.render('index');
-});
 
 /*
 app.get("/SchoolEntryFourm", function(req,res){
@@ -113,4 +109,3 @@ app.post("/examplemultiplechoice", function(req, res){
 app.get("/Questionnew",function(req, res) {
     res.render("Questionnew.ejs");
 });
-
