@@ -43,13 +43,13 @@ a:hover {
 		text-align: left;
 		width: 100%;
 	}
-		
+
 	.modal-container h3,
 	.modal-container input[type="text"],
 	.modal-container input[type="password"] {
 		margin-bottom: 30px;
 	}
-	
+
 header {
 	background-color: #fffcfc;
 	height: 130px;
@@ -61,7 +61,7 @@ header {
 	#header-logo {
 		height: 100%;
 	}
-	
+
 	header a,
 	header a:hover,
 	header a:focus {
@@ -73,12 +73,12 @@ header {
 		float: right;
 		margin: 20px;
 	}
-	
+
 		header ul li {
 			display: inline-block;
 			margin: 20px;
 		}
-		
+
 #sidebar {
 	background-color: #f8f9fa;
 	border-right: 2px solid #dfe0e1;
@@ -100,11 +100,11 @@ header {
 	#sidebar ul a:focus {
 		text-decoration: none;
 	}
-	
+
 	#sidebar ul li {
 		margin: 15px 0;
 	}
-	
+
 	#sidebar ul h5 {
 		color: #ccc;
 		margin: 20px 0;
@@ -129,12 +129,16 @@ header {
 		margin-top: 40px;
 		width: 100%;
 	}
-	
+
+.test {
+	color: blue;
+}
+
 .question {
 	padding: 30px 5px;
 	border-top: 1px solid #ddd;
 }
-	
+
 @media (max-width: 768px) {
 	header ul {
 		display: none;
@@ -143,7 +147,7 @@ header {
     #sidebar {
         margin-left: -250px;
     }
-    
+
     #sidebar .hide {
         margin-left: 0;
     }
