@@ -13,11 +13,6 @@ mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 
-Questions.deleteMany({}, function(err){
-    if(err){
-        console.log("there was an err")
-    }
-});
 
 //Schema setup
 var SchoolTeamSchema = new mongoose.Schema({
