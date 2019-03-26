@@ -1,6 +1,6 @@
 var express         = require("express");
 var mongoose        = require("mongoose");
-var Questions       = require("../models/MultiChoice.js");
+var Team            = require("../models/Teams.js");
 
 mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });
 
@@ -23,18 +23,18 @@ function buildCSV(school,score) {
 function downloadCSV() {
   var schoolArr = [];
   var scoreArr = [];
-  var u = Questions.find({}, { question: 1, option_A: 1, _id: 0}, function(err, data){
+  var u = Team.find({}, { name: 1, final_grade: 1, _id: 0}, function(err, data){
     if(err){
       console.log(err);
     }else{
       //Set school names
       data.forEach(function(row){
-        schoolArr.push(row.question);
+        schoolArr.push(row.name);
       })
 
       //Set score
       data.forEach(function(row){
-        scoreArr.push(row.option_A);
+        scoreArr.push(row.final_grade);
       })
 
       buildCSV(schoolArr,scoreArr);

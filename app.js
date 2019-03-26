@@ -4,6 +4,7 @@ var express         = require("express"),
    mongoose         = require("mongoose"),
    open             = require("opn"),
      Questions       = require("./models/MultiChoice.js");
+     Team       = require("./models/Teams.js");
      var router      = express.Router();
    app.use(express.static(__dirname + "/public"));
    app.use(express.static(__dirname + "/views"));
@@ -15,16 +16,6 @@ app.set("view engine", "ejs");
 
 
 //Schema setup
-var SchoolTeamSchema = new mongoose.Schema({
-    name:       String,
-    gradeLevel: String,
-    questionID: String,
-    answers:    String,
-    MC_Grade:   String,
-    final_grade:String
-});
-
-var Team = mongoose.model("Team", SchoolTeamSchema);
 
 /*
 app.get("/SchoolEntryFourm", function(req,res){
@@ -99,10 +90,30 @@ app.post("/examplemultiplechoice", function(req, res){
     })
 });
 
+app.post("/exampleteam", function(req, res){
+    var name = req.body.name;
+    var gradeLevel = req.body.gradeLevel;
+    var MC_Grade = req.body.MC_Grade;
+    var final_grade = req.body.final_grade;
+    var newTeam = {name:name,gradeLevel:gradeLevel,MC_Grade:MC_Grade,final_grade:final_grade}
+    Team.create(newTeam,function(err, newTeamCreated){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/examplemultiplechoice");
+        }
+    })
+});
+
 
 
 
 
 app.get("/Questionnew",function(req, res) {
     res.render("Questionnew.ejs");
+});
+
+//Addeding new GET function for adding team
+app.get("/Teamnew",function(req, res) {
+    res.render("Teamnew.ejs");
 });
