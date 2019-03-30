@@ -9,6 +9,8 @@ var express         = require("express"),
    app.use(express.static(__dirname + "/views"));
  app.use(express.static(__dirname + "/models"));
 
+
+
 mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -79,34 +81,52 @@ app.get("/examplemultiplechoice", function(req,res){
                 res.render("examplemultiplechoice",{questions:allQuestions});
             }
         })
-});
-
+})
 app.post("/examplemultiplechoice", function(req, res){
-    var newQuestion = {
-        ID: req.body.ID,
-        question: req.body.question,
-        option_A: req.body.option_A,
-        option_B: req.body.option_B,
-        option_C: req.body.option_C,
-        option_D: req.body.option_D,
-        correct_option: req.body.correct_option
-    }
-
-    Questions.create(newQuestion, function(err, newCreated){
-        if (err) {
+    var ID = req.body.ID;
+    var question = req.body.question;
+    var option_A = req.body.option_A;
+    var option_B = req.body.option_B;
+    var option_C = req.body.option_C;
+    var option_D = req.body.option_D;
+    var correct_option = req.body.correct_option;
+    var newQuestion = {ID:ID,question:question,option_A:option_A,option_B:option_B
+        ,option_C:option_C,option_D:option_D,correct_option:correct_option}
+    Questions.create(newQuestion,function(err, newCreated){
+        if(err){
             console.log(err)
-        } else {
+        }else{
             res.redirect("/examplemultiplechoice");
         }
     })
 });
 
-app.post("/submitQuestion", function(req, res) {
-  console.log('req: ', req.body);
-  res.redirect("/examplemultiplechoice");
+
+app.delete("/examplemultiplechoice", function(req, res) {
+  Questions.delete("examplemultiplechoice").findOneAndDelete({question: req.body.question},
+  function(err, result){
+    if(err) {
+      res.send(500, err);
+    }
+    res.send("Question deleted.")
+  })
 });
 
+fetch({ /* request */}) {
+  .then(res {
+    if(res.ok) {
+      return res.json;
+    }
+  })
+  .then(data {
+    console.log(data)
+    window.location.reload(true);
+  })
+}
 
+<button class="btn btn-danger" type="Submit" data-toggle="button" aria-pressed="false">
+  Delete
+</button>
 
 
 app.get("/Questionnew",function(req, res) {
