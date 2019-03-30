@@ -1,0 +1,22 @@
+<%
+  var data = [];
+  teams.forEach(function(team){
+    data.push([team.name,team.final_grade]);
+  });
+
+  var csv = "Team, Score\\n";
+  data.forEach(function(row){
+    csv += row.join(',');
+    csv += "\\n";
+  });
+%>
+
+<script>
+  var passedCSV = "<%= csv %>";
+  console.log(passedCSV);
+  var hiddenElement = document.createElement('a');
+  hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(passedCSV);
+  hiddenElement.target = '_blank';
+  hiddenElement.download = 'team_scores.csv';
+  hiddenElement.click();
+</script>
