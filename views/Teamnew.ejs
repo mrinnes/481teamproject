@@ -1,0 +1,41 @@
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" href="/style.css">
+		<script src="../jquery-3.3.1.min.js"></script>
+		<script src="../js/main.js"></script>
+	</head>
+
+	<body class="interface">
+    <% include ./header %>
+
+		<div class="wrapper">
+			<% include ./sidebar %>
+
+			<div id="main-content-area">
+				<div class="container">
+          <h1>Add a new team.</h1>
+					<p></p>
+          <form  action="/exampleteam" method="POST">
+							<h6>Enter Team Name:</h6>
+              <input class="form-control" type="text" name="name" placeholder="">
+              <p></p>
+							<h6>Enter Grade Level:</h6>
+              <input class="form-control" type="text" name="gradeLevel" placeholder="">
+              <p></p>
+							<h6>Enter Multiple Choice Grade:</h6>
+              <input class="form-control" type="text" name="MC_Grade" placeholder="">
+              <p></p>
+							<h6>Enter Final Grade:</h6>
+              <input class="form-control" type="text" name="final_grade" placeholder="">
+              <p></p>
+              <button type ="Submit">Submit!</button>
+          </form>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
