@@ -14,48 +14,10 @@ mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-
-//Schema setup
-
-/*
-app.get("/SchoolEntryFourm", function(req,res){
-        //Get all Data from Data base
-        Team.find({}, function(err, allTeams){
-            if(err){
-                console.log(err);
-            }else{
-                res.render("SchoolEntryFourm",{teams:allTeams});
-            }
-        })
-})
-app.post("/SchoolEntryFourm", function(req, res){
-    var name = req.body.name;
-    var gradeLevel = req.body.gradeLevel;
-    var newTeam = {name:name,gradeLevel:gradeLevel}
-    Team.create(newTeam,function(err, newCreated){
-        if(err){
-            console.log(err)
-        }else{
-            res.redirect("/SchoolEntryFourm");
-        }
-    })
-});
-
-
-*/
-
 app.listen(process.env.PORT || 3000, process.env.IP, function(){
     console.log("Icompute Server has Started");
     open('http://localhost:3000');
 });
-
-
-//////////////////////////////////////////////////
-//Schema setup
-
-
-
-
 
 app.get("/", function(req, res){
     res.render("index");
