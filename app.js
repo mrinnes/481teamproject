@@ -9,6 +9,8 @@ var express         = require("express"),
    app.use(express.static(__dirname + "/views"));
  app.use(express.static(__dirname + "/models"));
 
+
+
 mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -100,7 +102,15 @@ app.post("/examplemultiplechoice", function(req, res){
 });
 
 
-
+app.delete("/examplemultiplechoice", function(req, res) {
+  Questions.delete("examplemultiplechoice").findOneAndDelete({question: req.body.question},
+  function(err, result){
+    if(err) {
+      res.send(500, err);
+    }
+    res.send("Question deleted.")
+  })
+});
 
 
 app.get("/Questionnew",function(req, res) {
