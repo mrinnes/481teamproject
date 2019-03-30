@@ -133,6 +133,10 @@ app.post("/register", function(req,res){
    req.body.isTeam
    req.body.isGrader
    req.body.isAdmin
+
+   var newUser = req.body.newUser;
+   
+
     if(req.body.adminCode === process.env.ADMIN_CODE) {
       newUser.isAdmin = true;
 }
