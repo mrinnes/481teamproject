@@ -54,7 +54,6 @@ app.post("/examplemultiplechoice", function(req, res){
     })
 });
 
-
 app.post("/exampleteam", function(req, res){
     var name = req.body.name;
     var gradeLevel = req.body.gradeLevel;
@@ -62,20 +61,19 @@ app.post("/exampleteam", function(req, res){
     var final_grade = req.body.final_grade;
     var newTeam = {name:name,gradeLevel:gradeLevel,MC_Grade:MC_Grade,final_grade:final_grade}
     Team.create(newTeam,function(err, newTeamCreated){
-        if(err){
+        if (err) {
             console.log(err)
-        }else{
+        } else {
             res.redirect("/examplemultiplechoice");
         }
-    })
+    });
+});
 
 app.post("/submitQuestion", function(req, res) {
   console.log('req: ', req.body);
   res.redirect("/examplemultiplechoice");
 
 });
-
-
 
 app.get("/Questionnew",function(req, res) {
     res.render("Questionnew.ejs");
@@ -89,10 +87,10 @@ app.get("/Teamnew",function(req, res) {
 //Addeding new GET function for adding team
 app.get("/Downloadcsv",function(req, res) {
   Team.find({}, function(err, allTeams){
-      if(err){
+      if (err) {
           console.log(err);
-      }else{
-          res.render("downloadcsv.ejs",{teams:allTeams});
+      } else {
+          res.render("downloadcsv.ejs",{ teams: allTeams });
       }
-  })
+  });
 });
