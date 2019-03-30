@@ -77,7 +77,7 @@ app.post("/exampleteam", function(req, res){
     var MC_Grade = req.body.MC_Grade;
     var final_grade = req.body.final_grade;
     var newTeam = {name:name,gradeLevel:gradeLevel,MC_Grade:MC_Grade,final_grade:final_grade}
-    Team.create(newTeam,function(err, newTeamCreated){
+    Teams.create(newTeam,function(err, newTeamCreated){
         if (err) {
             console.log(err)
         } else {
@@ -104,7 +104,7 @@ app.get("/Teamnew",function(req, res) {
 
 //Addeding new GET function for adding team
 app.get("/Downloadcsv",function(req, res) {
-  Team.find({}, function(err, allTeams){
+  Teams.find({}, function(err, allTeams){
       if (err) {
           console.log(err);
       } else {
@@ -134,9 +134,12 @@ app.post("/register", function(req,res){
    req.body.isGrader
    req.body.isAdmin
 
-   var newUser = req.body.newUser;
+   var newUser = {
+      isAdmin: false,
+      isGrader: false,
+      isTeam: false
+   }
    
-
     if(req.body.adminCode === process.env.ADMIN_CODE) {
       newUser.isAdmin = true;
 }
