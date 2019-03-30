@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="../jquery-3.3.1.min.js"></script>
+    <script src="../js/main.js"></script>
+  </head>
+
+  <body class="interface">
+    <% include ./header %>
+
+    <div class="wrapper">
+      <% include ./sidebar %>
+
+      <div id="main-content-area">
+        <div class="container">
+          <form action="/register" method="POST">
+            <h2>Add User</h2>
+            <p>Directions: TODO</p>
+
+  
+            <div class="question">
+              <h5>Select user type:</h5>
+
+              <label>
+                <input type="radio" id="option1A" name="isTeam" value="true" checked>
+                Team
+              </label>
+
+              <label>
+                <input type="radio" id="option1B" name="isGrader" value="true">
+                Grader
+              </label>
+
+              <label>
+                <input type="radio" id="option1C" name="isAdmin" value="true">
+                Supervisor
+              </label>
+            </div>
+ 	
+            <div class="question">
+              <label> Username: </label>
+        			<input class="form-control" type = "text" name="username" id="username" />
+
+              <label> Password: </label>
+        			<input class="form-control" type = "text" name="password" id="password" />
+            </div>
+
+            <div class="text-right">
+              <input class="btn btn-primary" type="submit" value="Create User">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
