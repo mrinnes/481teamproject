@@ -1,6 +1,8 @@
 <nav id="sidebar">
   <ul class="list-unstyled">
           <h5>Questions</h5>
+
+          <% if(currentUser && currentUser.isAdmin){ %>
           <li>
             <a href="/Questionnew">Add multiple choice question</a>
           </li>
@@ -10,5 +12,10 @@
           <li>
               <a href="/exampleshortanswer">short answer</a>
           </li>
+          <%  } %>
+          <li>
+            <a href="/register">add user</a>
+          </li>
+        
       </ul>
 </nav>
