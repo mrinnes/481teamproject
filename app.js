@@ -107,8 +107,6 @@ app.post("/exampleteam", function(req, res){
 
 
 
-
-
 app.get("/Questionnew",function(req, res) {
     res.render("Questionnew.ejs");
 });
@@ -116,4 +114,15 @@ app.get("/Questionnew",function(req, res) {
 //Addeding new GET function for adding team
 app.get("/Teamnew",function(req, res) {
     res.render("Teamnew.ejs");
+});
+
+//Addeding new GET function for adding team
+app.get("/Downloadcsv",function(req, res) {
+  Team.find({}, function(err, allTeams){
+      if(err){
+          console.log(err);
+      }else{
+          res.render("downloadcsv.ejs",{teams:allTeams});
+      }
+  })
 });
