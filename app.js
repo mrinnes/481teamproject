@@ -108,6 +108,7 @@ app.post("/submitQuestion", function(req, res) {
 
 
 
+
 app.get("/Questionnew",function(req, res) {
     res.render("Questionnew.ejs");
 });
