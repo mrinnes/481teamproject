@@ -1,0 +1,63 @@
+<%
+  var data = [];
+  teams.forEach(function(team){
+    data.push([team.name,team.final_grade]);
+  });
+
+  var csv = "Team, Score\\n";
+  data.forEach(function(row){
+    csv += row.join(',');
+    csv += "\\n";
+  });
+%>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="../jquery-3.3.1.min.js"></script>
+    <script src="../js/main.js"></script>
+  </head>
+
+  <body class="interface">
+    <% include ./header %>
+
+    <div class="wrapper">
+      <% include ./sidebar %>
+
+      <div id="main-content-area">
+      <div class="container">
+          <h2>
+            Team Name
+            <span style="float:right;">Final Score</span>
+          </h2>
+          <div class="question">
+            <% for (i=0; i<teams.length; i++) { %>
+            <h5>
+            <p style="text-align:left;">
+              <%= teams[i].name %>
+              <span style="float:right;"><% if (teams[i].final_grade != null) {%><%= teams[i].final_grade %><% }else{%>N/A<%}%></span>
+            </p>
+            </h5>
+            <% } %>
+            <button class="btn btn-primary" onclick="downloadCSV()">Download</button>
+					</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  function downloadCSV() {
+    var passedCSV = "<%= csv %>";
+    console.log(passedCSV);
+    var hiddenElement = document.createElement('a');
+    document.body.appendChild(hiddenElement);
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(passedCSV);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'team_scores.csv';
+    document.getElementById('main-content-area').appendChild(hiddenElement);
+    hiddenElement.click();
+  }
+</script>

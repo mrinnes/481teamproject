@@ -190,6 +190,16 @@ app.get("/Downloadcsv",function(req, res) {
   });
 });
 
+app.get("/displayteams",function(req, res) {
+  Team.find({}, function(err, allTeams) {
+      if (err) {
+          console.log(err);
+      } else {
+          res.render("displayteams.ejs", { teams: allTeams });
+      }
+  });
+});
+
 
 ///AUTH ROUTES
 
