@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  var express            = require("express"),
      app                = express(),
      bodyParser         = require("body-parser"),
@@ -36,6 +37,97 @@ app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     next();
 });
+=======
+var express         = require("express"),
+app                 = express(),
+bodyParser          = require("body-parser"),
+mongoose            = require("mongoose"),
+open                = require("opn"),
+Questions           = require("./models/MultiChoice.js"),
+Team                = require("./models/teams.js"),
+router              = express.Router();
+
+
+app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/views"));
+app.use(express.static(__dirname + "/models"));
+
+
+mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });
+app.use(bodyParser.urlencoded({extended: true}));
+app.set("view engine", "ejs");
+
+
+app.post("/submitQuestion", function(req, res) {
+  console.log('req: ', req.body);
+      var questions;
+    var answers = Object.values(req.body);
+      //console.log('answers: ', answers);
+  
+  
+  
+Questions.find({}, function(err, allQuestions){
+	if (err) {
+		console.log(err);
+	} else {
+		questions = allQuestions;
+		//console.log('questions: ', allQuestions);
+		counter = 0;
+		for(i = 0; i < allQuestions.length; i++){
+			//console.log('question id: ', allQuestions[i].ID);
+			//console.log('question correct answer: ', allQuestions[i].correct_option);
+			//console.log('selected answer: ', answers[i]);
+			if(allQuestions[i].correct_option === answers[i]){
+				console.log(allQuestions[i].ID, ' is correct');
+				counter++;
+			} else {
+				console.log(allQuestions[i].ID, ' is incorrect');
+			}
+		}
+		console.log(counter + " correct answers");
+
+	
+        var query = { "team_ID" : 1 };
+        var update = {
+            "$set": { "MC_Grade": counter } 
+        };
+        var options = { "multi": true };
+
+    Team.update(query, update, options, function (err) {
+        if (err) return console.error(err);         
+    })
+
+		
+	}
+});
+	
+	
+      
+  res.redirect("/examplemultiplechoice");
+});
+
+//app.get("/grade", function(req,res){
+//	console.log("Grading Method Called Successfully");
+//        //Get all Data from Data base
+//        Team.find({}, function(err, allTeams){
+//            if(err){
+ //               console.log(err);
+//            }else{
+//                console.log("No Errors to log");
+//				var counter = 0;	
+ //           }
+//       })
+//})
+
+
+app.listen(process.env.PORT || 3000, process.env.IP, function(){
+    console.log("Icompute Server has Started");
+    open('http://localhost:3000');
+});
+
+
+
+>>>>>>> 7cdaa460b2548ece46098c12019d926a35b1d4f9
 app.get("/", function(req, res){
     res.render("index.ejs");
 });
@@ -71,6 +163,7 @@ app.post("/examplemultiplechoice", function(req, res){
     })
 });
 
+<<<<<<< HEAD
 app.post("/exampleteam", function(req, res){
     var name = req.body.name;
     var gradeLevel = req.body.gradeLevel;
@@ -84,12 +177,34 @@ app.post("/exampleteam", function(req, res){
             res.redirect("/examplemultiplechoice");
         }
     });
+=======
+
+app.post("/submitQuestion", function(req, res) {
+  console.log('req: ', req.body);
+      var questions;
+    var answers = Object.values(req.body);
+      console.log('answers: ', answers);
+  
+  
+    Questions.find({}, function(err, allQuestions){
+        if (err) {
+            console.log(err);
+        } else {
+            questions = allQuestions;
+            console.log('questions: ', allQuestions);
+        }
+    });
+      
+	  
+  res.redirect("/examplemultiplechoice");
+>>>>>>> 7cdaa460b2548ece46098c12019d926a35b1d4f9
 });
 
 app.post("/submitQuestion", function(req, res) {
   console.log('req: ', req.body);
   res.redirect("/examplemultiplechoice");
 
+<<<<<<< HEAD
 });
 
 app.get("/Questionnew",function(req, res) {
@@ -192,3 +307,8 @@ app.listen(process.env.PORT || 3000, process.env.IP, function(){
     console.log("Icompute Server has Started");
     open('http://localhost:3000');
 });
+=======
+app.get("/Questionnew",function(req, res) {	
+    res.render("Questionnew.ejs");
+});
+>>>>>>> 7cdaa460b2548ece46098c12019d926a35b1d4f9
