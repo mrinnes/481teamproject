@@ -102,9 +102,37 @@ app.post("/examplemultiplechoice", function(req, res){
 });
 
 
+<<<<<<< HEAD
 app.get("/QuestionDelete", function(req, res) {
   res.render("QuestionDelete.ejs");
 });
+=======
+app.delete("/examplemultiplechoice", function(req, res) {
+  Questions.delete("examplemultiplechoice").findOneAndDelete({question: req.body.question},
+  function(err, result){
+    if(err) {
+      res.send(500, err);
+    }
+    res.send("Question deleted.")
+  })
+});
+
+fetch({ /* request */}) {
+  .then(res {
+    if(res.ok) {
+      return res.json;
+    }
+  })
+  .then(data {
+    console.log(data)
+    window.location.reload(true);
+  })
+}
+
+<button class="btn btn-danger" type="Submit" data-toggle="button" aria-pressed="false">
+  Delete
+</button>
+>>>>>>> 34f09ee77e6ecf28f36f60b5340442dbfab42b95
 
 
 app.get("/Questionnew",function(req, res) {

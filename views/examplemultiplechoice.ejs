@@ -3,8 +3,6 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="/bootstrap.min.css">
 		<link rel="stylesheet" href="/style.css">
-		<script src="../jquery-3.3.1.min.js"></script>
-		<script src="../js/main.js"></script>
 	</head>
 
 	<body class="interface">
@@ -15,48 +13,47 @@
 
 			<div id="main-content-area">
 				<div class="container">
-
-
 						<h2>Example Multiple Choice Questions</h2>
 						<p>Directions: Answer questions below and click submit</p>
 
-						<form>
-					<% questions.forEach(function(question){ %>
+						<form action="/submitQuestion" method="POST">
+					<% for (i=0; i<questions.length; i++) { %>
 
 							<div class="question">
-								<h4> <%= question.question %></h4>
+								<h4> <%= questions[i].question %></h4>
 
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1A" name="multipleChoiceQuestion1" value="A" checked>
-										<%= question.option_A  %>>
+										<input type="radio" id="option1A" name="multipleChoiceQuestion<%= i+1 %>" value="A" checked>
+										<%= questions[i].option_A  %>
 									</label>
 								</div>
 
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1B" name="multipleChoiceQuestion1" value="B">
-										<%= question.option_B  %>>
+										<input type="radio" id="option1B" name="multipleChoiceQuestion<%= i+1 %>" value="B">
+										<%= questions[i].option_B  %>
 									</label>
 								</div>
 
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1C" name="multipleChoiceQuestion1" value="C">
-										<%= question.option_C  %>>
+										<input type="radio" id="option1C" name="multipleChoiceQuestion<%= i+1 %>" value="C">
+										<%= questions[i].option_C  %>
 									</label>
 								</div>
 
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1D" name="multipleChoiceQuestion1" value="D">
-											<%= question.option_D  %>>
+										<input type="radio" id="option1D" name="multipleChoiceQuestion<%= i+1 %>" value="D">
+											<%= questions[i].option_D  %>
 									</label>
 								</div>
+
+								<input type="submit" class="btn btn-primary" value="Delete">
 							</div>
 
-
-							<% }); %>
+							<% } %>
 							<div class="text-right">
 								<input class="btn btn-primary" type="submit" value="Submit">
 							</div>
@@ -66,7 +63,6 @@
 							</div>
 
 						</form>
-
 
 
 
