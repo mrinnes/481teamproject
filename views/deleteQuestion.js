@@ -20,6 +20,6 @@ fetch({ /* request */}) {
   })
 }
 
-<button class="btn btn-danger" type="Submit" data-toggle="button" aria-pressed="false">
+<button class="btn btn-danger" type="Delete" data-toggle="button" aria-pressed="false">
   Delete
 </button>
