@@ -43,6 +43,30 @@
               <button type ="Submit">Submit!</button>
           </form>
 
+					<script>
+            router.delete("/:id", function(req, res){
+                question.findByIdAndRemove(reqs.params.id, function(err){
+                  if(err) {
+                    res.redirect("/");
+                  }
+                  else{
+                    res.redirect("/");
+                  }
+                });
+            });
+
+            router.delete("/:comment_id", function(req, res){
+              question.findByIdAndRemove(req.params.comment_id, function(err){
+                if(err) {
+                  res.redirect("back");
+                }
+                else {
+                  res.redirect("//" + req.params.id);
+                }
+              });
+            });
+            </script>
+
 				</div>
 			</div>
 		</div>

@@ -1,3 +1,6 @@
+
+<script type='text/javascript'>
+/*
 app.delete("/questions", function(req, res) {
   Question.delete("questions").findOneAndDelete({question: req.body.question},
   function(err, result){
@@ -7,19 +10,16 @@ app.delete("/questions", function(req, res) {
     res.send("Question deleted.")
   })
 });
+*/
 
-fetch({ /* request */}) {
-  .then(res {
-    if(res.ok) {
-      return res.json;
-    }
-  })
-  .then(data {
-    console.log(data);
-    window.location.reload(true);
-  })
+
+$(document).click(function () ) {
+  ('.question').remove();
+  ('[]').
 }
 
-<button class="btn btn-danger" type="Delete" data-toggle="button" aria-pressed="false">
+<button class="btn btn-danger" type="button" data-original-title="Remove question." aria-pressed="false">
   Delete
 </button>
+
+</script>

@@ -102,14 +102,8 @@ app.post("/examplemultiplechoice", function(req, res){
 });
 
 
-app.delete("/examplemultiplechoice", function(req, res) {
-  Questions.delete("examplemultiplechoice").findOneAndDelete({question: req.body.question},
-  function(err, result){
-    if(err) {
-      res.send(500, err);
-    }
-    res.send("Question deleted.")
-  })
+app.get("/QuestionDelete", function(req, res) {
+  res.render("QuestionDelete.ejs");
 });
 
 
