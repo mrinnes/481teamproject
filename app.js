@@ -106,8 +106,16 @@ app.post("/submitQuestion", function(req, res) {
   res.redirect("/examplemultiplechoice");
 });
 
-
-
+app.post("/deleteQuestion", function(req, res) {
+  Questions.deleteOne({ID:req.query.questionID}, function(err, db){
+      if(err){
+          console.log(err);
+      }else{
+          console.log("Deleted: " + req.query.questionID);
+      }
+  })
+  res.redirect("/examplemultiplechoice");
+});
 
 app.get("/Questionnew",function(req, res) {
     res.render("Questionnew.ejs");

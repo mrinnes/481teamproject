@@ -50,8 +50,7 @@
 											<%= questions[i].option_D  %>
 									</label>
 								</div>
-
-								<input type="submit" class="btn btn-primary" value="Delete">
+								<input type="submit" class="btn btn-primary" value="Delete" formaction = "/deleteQuestion?questionID=<%= questions[i].ID %>">
 							</div>
 
 							<% } %>
@@ -59,10 +58,6 @@
 								<input class="btn btn-primary" type="submit" value="Submit">
 							</div>
 						</form>
-
-
-
-
 			</div>
 		</div>
 	</body>
