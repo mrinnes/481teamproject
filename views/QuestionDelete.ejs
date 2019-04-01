@@ -44,6 +44,23 @@
           </div>
 
           <script>
+          $('#main-content-data').on('show', function() {
+            var id = $(this).data('id'), removeBtn = $(this).find('.danger');
+          });
+
+          $('confirm-delete').on('click', function(e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+            $('#main-content-data').data('id', id).modal('show');
+          });
+
+          $('#btnRemove').click(function() {
+            var id = $('#main-content-area').data('id');
+            $('[data-id=' + id + ']').remove();
+            $('#main-content-area').modal('hide');
+          });
+          
             router.delete("/:id", function(req, res){
                 question.findByIdAndRemove(reqs.params.id, function(err){
                   if(err) {
