@@ -157,6 +157,7 @@ app.post("/", function(req, res) {
   res.redirect("/examplemultiplechoice");
 });
 
+
 app.get("/Questionnew",function(req, res) {
   res.render("Questionnew.ejs");
 });
@@ -164,6 +165,18 @@ app.get("/Questionnew",function(req, res) {
 //Addeding new GET function for adding team
 app.get("/Teamnew",function(req, res) {
     res.render("Teamnew.ejs");
+});
+
+app.post("/deleteQuestion", function(req, res) {
+  Questions.deleteOne({ID:req.query.questionID}, function(err, db) {
+      if(err){
+          console.log(err);
+      }else{
+          console.log("Deleted: " + req.query.questionID);
+      }
+  });
+
+  res.redirect("/examplemultiplechoice");
 });
 
 //Addeding new GET function for adding team

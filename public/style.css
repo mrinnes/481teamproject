@@ -87,7 +87,6 @@ header {
 			right: 57px;
 			top: 15px;
 		}
-
 #sidebar {
 	background-color: #f8f9fa;
 	border-right: 2px solid #dfe0e1;
@@ -144,10 +143,13 @@ header {
 		padding-right: 20px;
 	}
 
+<<<<<<< HEAD
 form label, form button {
 	margin-top: 15px;
 }
 
+=======
+>>>>>>> deleteQuestion2
 @media (max-width: 768px) {
 	header ul {
 		display: none;
