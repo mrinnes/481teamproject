@@ -1,0 +1,92 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <script src="../jquery-3.3.1.min.js"></script>
+  <script src="../js/main.js"></script>
+</head>
+
+<body class="interface">
+  <% include ./header %>
+
+  <div class="wrapper">
+    <% include ./sidebar %>
+
+      <div id="main-content-area">
+        <div class="container">
+          <h2>Delete any multiple choice question</h2>
+          <p></p>
+            <form action="/examplemultiplechoice" method="POST">
+              <h6>Enter Question ID:</h6>
+              <input class="form-control" type="text" name="ID" placeholder="">
+              <p></p>
+              <h6>Enter Question Text:</h6>
+              <input class="form-control" type="text" name="question" placeholder="">
+              <p></p>
+              <h6>Enter Option A:</h6>
+              <input class="form-control" type="text" name="option_A" placeholder="">
+              <p></p>
+              <h6>Enter Option B:</h6>
+              <input class="form-control" type="text" name="option_B" placeholder="">
+              <p></p>
+              <h6>Enter Option C:</h6>
+              <input class="form-control" type="text" name="option_C" placeholder="">
+              <p></p>
+              <h6>Enter Option D:</h6>
+              <input class="form-control" type="text" name="option_D" placeholder="">
+              <p></p>
+              <h6>Enter Correct Option:</h6>
+              <input class="form-control" type="text" name="correct_option" placeholder="">
+              <p></p>
+              <button class="btn btn-danger">Delete!</button>
+            </form>
+          </div>
+
+          <script>
+          $('#main-content-data').on('show', function() {
+            var id = $(this).data('id'), removeBtn = $(this).find('.danger');
+          });
+
+          $('confirm-delete').on('click', function(e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+            $('#main-content-data').data('id', id).modal('show');
+          });
+
+          $('#btnRemove').click(function() {
+            var id = $('#main-content-area').data('id');
+            $('[data-id=' + id + ']').remove();
+            $('#main-content-area').modal('hide');
+          });
+          
+            router.delete("/:id", function(req, res){
+                question.findByIdAndRemove(reqs.params.id, function(err){
+                  if(err) {
+                    res.redirect("/Questionnew");
+                  }
+                  else{
+                    res.redirect("/QuestionDelete");
+                  }
+                });
+            });
+
+            router.delete("/:comment_id", function(req, res){
+              question.findByIdAndRemove(req.params.comment_id, function(err){
+                if(err) {
+                  res.redirect("");
+                }
+                else {
+                  res.redirect("//" + req.params.id);
+                }
+              });
+            });
+            </script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
