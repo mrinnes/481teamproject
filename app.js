@@ -5,9 +5,9 @@
      open               = require("opn"),
      passport           = require("passport"),
      LocalStrategy      = require("passport-local"),
-     passportLocalMongoose = require("passport-local-mongoose")
+     passportLocalMongoose = require("passport-local-mongoose"),
      User               = require("./models/Users"),
-     Teams              = require("./models/Teams.js"),
+     Team              = require("./models/Teams.js"),
      Questions          = require("./models/MultiChoice"),
      router             = express.Router();
 
@@ -15,8 +15,8 @@
      app.use(express.static(__dirname + "/views"));
      app.use(express.static(__dirname + "/models"));
 
-     mongoose.connect("mongodb://localhost/Icompute",{ useNewUrlParser: true });
-     app.use(bodyParser.urlencoded({extended: true}));
+     mongoose.connect("mongodb://localhost/Icompute", { useNewUrlParser: true });
+     app.use(bodyParser.urlencoded( { extended: true } ));
      app.set("view engine", "ejs");
 
 //      PASSPORT CONFIGURATION
@@ -88,11 +88,11 @@ app.get("/", function(req, res) {
 
 app.get("/examplemultiplechoice", function(req, res) {
   //Get all Data from Data base
-  Questions.find({}, function(err, allQuestions){
+  Questions.find({}, function(err, allQuestions) {
     if (err) {
       console.log(err);
     } else {
-      res.render("examplemultiplechoice",{questions:allQuestions});
+      res.render("examplemultiplechoice", { questions: allQuestions });
     }
   });
 });
@@ -108,13 +108,13 @@ app.post("/examplemultiplechoice", function(req, res) {
         correct_option: req.body.correct_option
     }
 
-    Questions.create(newQuestion, function(err, newCreated){
+    Questions.create(newQuestion, function(err, newCreated) {
         if (err) {
             console.log(err)
         } else {
             res.redirect("/examplemultiplechoice");
         }
-    })
+    });
 });
 
 app.post("/exampleteam", function(req, res) {
@@ -122,15 +122,22 @@ app.post("/exampleteam", function(req, res) {
     var gradeLevel = req.body.gradeLevel;
     var MC_Grade = req.body.MC_Grade;
     var final_grade = req.body.final_grade;
-    var newTeam = {name:name,gradeLevel:gradeLevel,MC_Grade:MC_Grade,final_grade:final_grade}
-    
-    Teams.create(newTeam,function(err, newTeamCreated) {
+
+    var newTeam = {
+      name: name,
+      gradeLevel: gradeLevel,
+      MC_Grade: MC_Grade,
+      final_grade: final_grade
+    };
+
+    Team.create(newTeam,function(err, newTeamCreated) {
         if (err) {
-            console.log(err)
+            console.log(err);
         } else {
             res.redirect("/examplemultiplechoice");
         }
     });
+});
 
 app.post("/", function(req, res) {
   console.log('req: ', req.body);
@@ -161,11 +168,11 @@ app.get("/Teamnew",function(req, res) {
 
 //Addeding new GET function for adding team
 app.get("/Downloadcsv",function(req, res) {
-  Teams.find({}, function(err, allTeams){
+  Team.find({}, function(err, allTeams) {
       if (err) {
           console.log(err);
       } else {
-          res.render("downloadcsv.ejs",{ teams: allTeams });
+          res.render("downloadcsv.ejs", { teams: allTeams });
       }
   });
 });
@@ -185,17 +192,11 @@ app.get("/register",function(req,res) {
 
 ////////handle sign in logic
 app.post("/register", function(req,res) {
-   req.body.username
-   req.body.password
-   req.body.isTeam
-   req.body.isGrader
-   req.body.isAdmin
-
    var newUser = {
       isAdmin: false,
       isGrader: false,
       isTeam: false
-   }
+   };
 
    if (req.body.adminCode === process.env.ADMIN_CODE) {
      newUser.isAdmin = true;
@@ -239,10 +240,7 @@ app.get("/login", function(req,res) {
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/index",
     failureRedirect: "/register"
-  }), function(req, res) {
-
-  }
-);
+  }), function(req, res) {});
 
 // logic route
 app.get("/logout", function(req, res) {
@@ -257,10 +255,3 @@ function isLoggedIn(req, res, next) {
 
   res.redirect("/login");
 }
-
-//////show and hide links
-
-app.listen(process.env.PORT || 3000, process.env.IP, function() {
-    console.log("Icompute Server has Started");
-    open('http://localhost:3000');
-});
