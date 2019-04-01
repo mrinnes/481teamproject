@@ -45,7 +45,18 @@ Questions.find({}, function(err, allQuestions){
 			}
 		}
 		console.log(counter + " correct answers");
-		//Team.SchoolTeamSchema.MC_Grade = counter;
+
+	
+        var query = { "team_ID" : 1 };
+        var update = {
+            "$set": { "MC_Grade": counter } 
+        };
+        var options = { "multi": true };
+
+    Team.update(query, update, options, function (err) {
+        if (err) return console.error(err);         
+    })
+
 		
 	}
 });
