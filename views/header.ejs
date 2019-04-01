@@ -3,13 +3,17 @@
     <img id="header-logo" src="icompute-logo.png" alt="iCompute logo">
   </a>
 
+  <% if(currentUser){ %>
+  <div id="userID">Signed in as <%= currentUser.username%></div>
+  <% } %>
+
   <ul class="list-unstyled">
-  	<% if(!currentUser){ %>
     <li><a href="#">Help</a></li>
+
+    <% if(!currentUser) { %>
     <li><a href="/login">Log In</a></li>
-     		<%} else { %>
-    <li><a href="#">Signed in as <%= currentUser.username%></a></li>		
+    <%} else { %>
     <li><a href="/logout">Logout</a></li>
-      <% } %>
+    <% } %>
   </ul>
 </header>

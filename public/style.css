@@ -79,6 +79,15 @@ header {
 			margin: 20px;
 		}
 
+		header #userID {
+			color: #bbb;
+			font-size: 12px;
+			font-style: italic;
+			position: absolute;
+			right: 57px;
+			top: 15px;
+		}
+
 #sidebar {
 	background-color: #f8f9fa;
 	border-right: 2px solid #dfe0e1;
@@ -102,6 +111,7 @@ header {
 	}
 
 	#sidebar ul li {
+		font-size: 14px;
 		margin: 15px 0;
 	}
 
