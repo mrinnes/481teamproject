@@ -8,23 +8,30 @@
   </head>
 
   <body class="interface">
+    <div class="modal-overlay">
+			<div class="modal-container shadow">
+				<form action="/login" method="POST">
+					<h3>Sign in</h3>
+
+					<label for="username">Username</label>
+					<input type="text" class="form-control" id="username" name="username">
+
+					<label for="password">Password</label>
+					<input type="password" class="form-control" id="fapassword" name="password">
+
+					<div class="text-right">
+            <input class="btn btn-primary" type="submit" value ="Login!">
+					</div>
+				</form>
+			</div>
+		</div>
+
     <% include ./header %>
 
     <div class="wrapper">
       <% include ./sidebar %>
 
-      <div id="main-content-area">
-        <div class="container">
-          <h2>User Login</h2>
-          <div class="question">
-          <form action="/login" method="POST">
-          <input type = "text" name="username" placeholder="username">
-          <input type = "password" name="password" placeholder="password">
-          <input type="submit" value ="Login!">
-            </form>
-          </div>
-        </div>
-      </div>
+      <div id="main-content-area"></div>
     </div>
   </body>
 </html>
