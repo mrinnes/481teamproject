@@ -1,6 +1,6 @@
 
-<script type='text/javascript'>
-/*
+
+
 app.delete("/questions", function(req, res) {
   Question.delete("questions").findOneAndDelete({question: req.body.question},
   function(err, result){
@@ -10,16 +10,8 @@ app.delete("/questions", function(req, res) {
     res.send("Question deleted.")
   })
 });
-*/
 
-
-$(document).click(function () ) {
-  ('.question').remove();
-  ('[]').
-}
 
 <button class="btn btn-danger" type="button" data-original-title="Remove question." aria-pressed="false">
   Delete
 </button>
-
-</script>

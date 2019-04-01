@@ -39,10 +39,7 @@
               <h6>Enter Correct Option:</h6>
               <input class="form-control" type="text" name="correct_option" placeholder="">
               <p></p>
-              <button class="Delete">Delete!</button>
-              <div class="alert alert-warning" role="alert">
-                Are you sure you want to delete this question?
-              </div>
+              <button class="btn btn-danger">Delete!</button>
             </form>
           </div>
 
@@ -50,10 +47,10 @@
             router.delete("/:id", function(req, res){
                 question.findByIdAndRemove(reqs.params.id, function(err){
                   if(err) {
-                    res.redirect("/");
+                    res.redirect("/Questionnew");
                   }
                   else{
-                    res.redirect("/");
+                    res.redirect("/QuestionDelete");
                   }
                 });
             });
@@ -61,7 +58,7 @@
             router.delete("/:comment_id", function(req, res){
               question.findByIdAndRemove(req.params.comment_id, function(err){
                 if(err) {
-                  res.redirect("back");
+                  res.redirect("");
                 }
                 else {
                   res.redirect("//" + req.params.id);
