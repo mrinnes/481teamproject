@@ -144,6 +144,10 @@ header {
 		padding-right: 20px;
 	}
 
+form label, form button {
+	margin-top: 15px;
+}
+
 @media (max-width: 768px) {
 	header ul {
 		display: none;
