@@ -134,7 +134,7 @@ app.post("/exampleteam", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect("/examplemultiplechoice");
+            res.redirect("/displayteams");
         }
     });
 });
@@ -175,8 +175,18 @@ app.post("/deleteQuestion", function(req, res) {
           console.log("Deleted: " + req.query.questionID);
       }
   });
-
   res.redirect("/examplemultiplechoice");
+});
+
+app.post("/deleteTeam", function(req, res) {
+  Team.deleteOne({name:req.query.name}, function(err, db) {
+      if(err){
+          console.log(err);
+      }else{
+          console.log("Deleted: " + req.query.name);
+      }
+  });
+  res.redirect("/displayteams");
 });
 
 //Addeding new GET function for adding team

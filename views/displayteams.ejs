@@ -29,20 +29,33 @@
       <div id="main-content-area">
       <div class="container">
           <h2>
-            Team Name
-            <span style="float:right;">Final Score</span>
+            Teams
           </h2>
-          <div class="question">
-            <% for (i=0; i<teams.length; i++) { %>
-            <h5>
-            <p style="text-align:left;">
-              <%= teams[i].name %>
-              <span style="float:right;"><% if (teams[i].final_grade != null) {%><%= teams[i].final_grade %><% }else{%>N/A<%}%></span>
-            </p>
-            </h5>
-            <% } %>
-            <button class="btn btn-primary" onclick="downloadCSV()">Download</button>
-					</div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">TID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Year</th>
+                <th class="text-right" scope="col">Score</th>
+                <th class="text-right" scope="col">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (i=0; i<teams.length; i++) { %>
+                <tr>
+                  <td><%= i+1 %></td>
+                  <td><%= teams[i].name %></td>
+                  <td><%= teams[i].gradeLevel %>th Grade</td>
+                  <td class="text-right"><% if (teams[i].final_grade != null) {%><%= teams[i].final_grade %> points<% }else{%>N/A<%}%></td>
+                  <form action="/deleteTeam" method="POST">
+                    <td class="text-right"><input type="submit" class="btn btn-primary" value="Delete" formaction="/deleteTeam?name=<%= teams[i].name %>"></td>
+                  </form>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+          <button class="btn btn-primary" onclick="downloadCSV()">Download</button>
         </div>
       </div>
     </div>

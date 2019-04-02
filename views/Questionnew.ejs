@@ -19,26 +19,61 @@
           <form  action="/examplemultiplechoice" method="POST">
 							<label>Enter Question ID:</label>
               <input class="form-control" type="text" name="ID" placeholder="">
+							<p></p>
 
 							<label>Enter Question Text:</label>
               <input class="form-control" type="text" name="question" placeholder="">
+							<p></p>
 
 							<label>Enter Option A:</label>
               <input class="form-control" type="text" name="option_A" placeholder="">
+							<p></p>
 
 							<label>Enter Option B:</label>
               <input class="form-control" type="text" name="option_B" placeholder="">
+							<p></p>
 
 							<label>Enter Option C:</label>
               <input class="form-control" type="text" name="option_C" placeholder="">
+							<p></p>
 
 							<label>Enter Option D:</label>
               <input class="form-control" type="text" name="option_D" placeholder="">
+							<p></p>
 
-							<label>Enter Correct Option:</label>
-              <input class="form-control" type="text" name="correct_option" placeholder="">
+							<label>Select Correct Option:</label>
+							<div class="checkbox">
+								<label>
+									<input type="radio" id="option1A" name="correct_option" value=A checked>
+									Option A
+								</label>
+							</div>
 
-              <button class="btn btn-primary" type="Submit">Submit!</button>
+							<div class="checkbox">
+								<label>
+									<input type="radio" id="option1B" name="correct_option>" value=B>
+									Option B
+								</label>
+							</div>
+
+							<div class="checkbox">
+								<label>
+									<input type="radio" id="option1A" name="correct_option" value=C>
+									Option C
+								</label>
+							</div>
+
+							<div class="checkbox">
+								<label>
+									<input type="radio" id="option1B" name="correct_option>" value=D>
+									Option D
+								</label>
+							</div>
+							<p></p>
+							<p></p>
+						  <div class="text-right">
+              	<button class="btn btn-primary" type="Submit">Create Question</button>
+							</div>
           </form>
 				</div>
 			</div>

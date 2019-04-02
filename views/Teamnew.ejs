@@ -21,17 +21,34 @@
           <form action="/exampleteam" method="POST">
 							<label>Enter Team Name:</label>
               <input class="form-control" type="text" name="name" placeholder="">
+							<p></p>
 
-							<label>Enter Grade Level:</label>
-              <input class="form-control" type="text" name="gradeLevel" placeholder="">
+							<label>Select Grade Level:</label>
+							<div class="checkbox">
+								<label>
+									<input type="radio" id="option1A" name="gradeLevel" value=4 checked>
+									4th Grade
+								</label>
+							</div>
+
+							<div class="checkbox">
+								<label>
+									<input type="radio" id="option1B" name="gradeLevel>" value=5>
+									5th Grade
+								</label>
+							</div>
+							<p></p>
 
 							<label>Enter Multiple Choice Grade:</label>
               <input class="form-control" type="text" name="MC_Grade" placeholder="">
+							<p></p>
 
 							<label>Enter Final Grade:</label>
               <input class="form-control" type="text" name="final_grade" placeholder="">
-
-              <button class="btn btn-primary" type="Submit">Submit!</button>
+							<p></p>
+							<div class="text-right">
+              	<button class="btn btn-primary" type="Submit">Create Team</button>
+							</div>
           </form>
 				</div>
 			</div>
