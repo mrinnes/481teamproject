@@ -246,15 +246,15 @@ app.post("/submitQuestion", function(req, res) {
 			}
 
 		console.log(counter + " correct answers");
-
-		//var query = { "name" : req.body.username };
-		//var update = { "$set": { "MC_Grade": counter }};
-		//var options = { "multi": true };
+		res.locals.currentUser = req.user;
+		var query = {"name": res.locals.currentUser.username};
+		var update = { "$set": { "MC_Grade": counter }};
+		var options = { "multi": true };
 		
-		//console.log(req.body.username);
-		//Team.updateOne(query, update, options, function (err) {
-		//	if (err) return console.error(err);
-		//	});
+		console.log(query);
+		Team.updateOne(query, update, options, function (err) {
+			if (err) return console.error(err);
+			});
 		}
 	});
 });
