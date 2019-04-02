@@ -134,7 +134,7 @@ app.post("/exampleteam", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect("/examplemultiplechoice");
+            res.redirect("/displayteams");
         }
     });
 });
@@ -157,6 +157,7 @@ app.post("/", function(req, res) {
   res.redirect("/examplemultiplechoice");
 });
 
+
 app.get("/Questionnew",function(req, res) {
   res.render("Questionnew.ejs");
 });
@@ -166,6 +167,28 @@ app.get("/Teamnew",function(req, res) {
     res.render("Teamnew.ejs");
 });
 
+app.post("/deleteQuestion", function(req, res) {
+  Questions.deleteOne({ID:req.query.questionID}, function(err, db) {
+      if(err){
+          console.log(err);
+      }else{
+          console.log("Deleted: " + req.query.questionID);
+      }
+  });
+  res.redirect("/examplemultiplechoice");
+});
+
+app.post("/deleteTeam", function(req, res) {
+  Team.deleteOne({name:req.query.name}, function(err, db) {
+      if(err){
+          console.log(err);
+      }else{
+          console.log("Deleted: " + req.query.name);
+      }
+  });
+  res.redirect("/displayteams");
+});
+
 //Addeding new GET function for adding team
 app.get("/Downloadcsv",function(req, res) {
   Team.find({}, function(err, allTeams) {
@@ -173,6 +196,16 @@ app.get("/Downloadcsv",function(req, res) {
           console.log(err);
       } else {
           res.render("downloadcsv.ejs", { teams: allTeams });
+      }
+  });
+});
+
+app.get("/displayteams",function(req, res) {
+  Team.find({}, function(err, allTeams) {
+      if (err) {
+          console.log(err);
+      } else {
+          res.render("displayteams.ejs", { teams: allTeams });
       }
   });
 });

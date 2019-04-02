@@ -1,0 +1,76 @@
+<%
+  var data = [];
+  teams.forEach(function(team){
+    data.push([team.name,team.final_grade]);
+  });
+
+  var csv = "Team, Score\\n";
+  data.forEach(function(row){
+    csv += row.join(',');
+    csv += "\\n";
+  });
+%>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="../jquery-3.3.1.min.js"></script>
+    <script src="../js/main.js"></script>
+  </head>
+
+  <body class="interface">
+    <% include ./header %>
+
+    <div class="wrapper">
+      <% include ./sidebar %>
+
+      <div id="main-content-area">
+      <div class="container">
+          <h2>
+            Teams
+          </h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">TID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Year</th>
+                <th class="text-right" scope="col">Score</th>
+                <th class="text-right" scope="col">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (i=0; i<teams.length; i++) { %>
+                <tr>
+                  <td><%= i+1 %></td>
+                  <td><%= teams[i].name %></td>
+                  <td><%= teams[i].gradeLevel %>th Grade</td>
+                  <td class="text-right"><% if (teams[i].final_grade != null) {%><%= teams[i].final_grade %> points<% }else{%>N/A<%}%></td>
+                  <form action="/deleteTeam" method="POST">
+                    <td class="text-right"><input type="submit" class="btn btn-primary" value="Delete" formaction="/deleteTeam?name=<%= teams[i].name %>"></td>
+                  </form>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+          <button class="btn btn-primary" onclick="downloadCSV()">Download</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  function downloadCSV() {
+    var passedCSV = "<%= csv %>";
+    console.log(passedCSV);
+    var hiddenElement = document.createElement('a');
+    document.body.appendChild(hiddenElement);
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(passedCSV);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'team_scores.csv';
+    document.getElementById('main-content-area').appendChild(hiddenElement);
+    hiddenElement.click();
+  }
+</script>
