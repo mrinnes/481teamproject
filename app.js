@@ -21,7 +21,7 @@
 
 //      PASSPORT CONFIGURATION
 app.use(require("express-session")({
-    secret: "You have Succesfully loged in",
+    secret: "You have Succesfully logged in",
     resave: false,
     saveUnitialized: false
 }));
@@ -37,45 +37,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.post("/submitQuestion", function(req, res) {
-  console.log('req: ', req.body);
-  var questions;
-  var answers = Object.values(req.body);
-  //console.log('answers: ', answers);
 
-  Questions.find({}, function(err, allQuestions) {
-    if (err) {
-      console.log(err);
-    } else {
-      questions = allQuestions;
-      //console.log('questions: ', allQuestions);
-      counter = 0;
-
-      for (i = 0; i < allQuestions.length; i++) {
-        //console.log('question id: ', allQuestions[i].ID);
-        //console.log('question correct answer: ', allQuestions[i].correct_option);
-        //console.log('selected answer: ', answers[i]);
-
-        if (allQuestions[i].correct_option === answers[i]) {
-          console.log(allQuestions[i].ID, ' is correct');
-          counter++;
-        } else {
-          console.log(allQuestions[i].ID, ' is incorrect');
-        }
-      }
-
-      console.log(counter + " correct answers");
-
-      var query = { "team_ID" : 1 };
-      var update = { "$set": { "MC_Grade": counter }};
-      var options = { "multi": true };
-
-      Team.update(query, update, options, function (err) {
-        if (err) return console.error(err);
-      });
-    }
-  });
-});
 
 app.listen(process.env.PORT || 3000, process.env.IP, function() {
     console.log("Icompute Server has Started");
@@ -106,6 +68,7 @@ app.post("/examplemultiplechoice", function(req, res) {
         option_C: req.body.option_C,
         option_D: req.body.option_D,
         correct_option: req.body.correct_option
+
     }
 
     Questions.create(newQuestion, function(err, newCreated) {
@@ -119,7 +82,8 @@ app.post("/examplemultiplechoice", function(req, res) {
 
 app.post("/exampleteam", function(req, res) {
     var name = req.body.name;
-    var gradeLevel = req.body.gradeLevel;
+    //var name = currentUser;
+	var gradeLevel = req.body.gradeLevel;
     var MC_Grade = req.body.MC_Grade;
     var final_grade = req.body.final_grade;
 
@@ -288,3 +252,42 @@ function isLoggedIn(req, res, next) {
 
   res.redirect("/login");
 }
+
+app.post("/submitQuestion", function(req, res) {
+  console.log('req: ', req.body);
+  var questions;
+  var answers = Object.values(req.body);
+  //console.log('answers: ', answers);
+
+  
+  //grab the questions
+  Questions.find({}, function(err, allQuestions) {
+    if (err) {
+		console.log(err);} 
+	else {
+		questions = allQuestions;
+		counter = 0;
+		
+		for (i = 0; i < allQuestions.length; i++) {
+			if (allQuestions[i].correct_option === answers[i]) {
+				console.log(allQuestions[i].ID, ' is correct');
+				counter++; 
+				} 
+			else {
+				//console.log(allQuestions[i].ID, ' is incorrect');
+				}
+			}
+
+		console.log(counter + " correct answers");
+		res.locals.currentUser = req.user;
+		var query = {"name": res.locals.currentUser.username};
+		var update = { "$set": { "MC_Grade": counter }};
+		var options = { "multi": true };
+		
+		console.log(query);
+		Team.updateOne(query, update, options, function (err) {
+			if (err) return console.error(err);
+			});
+		}
+	});
+});

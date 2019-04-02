@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 
 
 var SchoolTeamSchema = new mongoose.Schema({
-    team_ID:            Number,
+    team_ID:            String,
     name:               String,
     gradeLevel:         Number,
     question_ID_01:     Number,
