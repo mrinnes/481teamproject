@@ -5,13 +5,27 @@
     <li><a href="/register">add user</a></li>
     <li><a href="/Teamnew">add team</a></li>
     <li><a href="/Questionnew">add multiple choice question</a></li>
-    <li><a href="/grade">grade multiple choice</a></li>
-    <li><a href="/displayteams">teams and scores</a></li>
+	<li><a href="/examplemultiplechoice">view multiple choice questions</a></li>
     <%  } %>
-    
+	
+	
+    <% if(currentUser && (currentUser.isGrader || currentUser.isAdmin) ){ %>
+	<h5>Grader</h5>
+	<!-- <li><a href="/mcresults">view multiple choice test results</a></li> -->
+    <li><a href="/displayteams">teams and scores</a></li>
+	
+	<%  } %>
+	
+	
+	<% if(currentUser && currentUser.isTeam){ %>
     <h5>Questions</h5>
     <li><a href="/examplemultiplechoice">multiple choice</a></li>
     <!-- <li><a href="/exampleshortanswer">short answer</a></li> -->
+	<%  } %>
+	
+	
+	
+	
   </ul>
 
 </nav>

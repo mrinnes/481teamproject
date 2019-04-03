@@ -287,7 +287,17 @@ app.post("/submitQuestion", function(req, res) {
 		console.log(query);
 		Team.updateOne(query, update, options, function (err) {
 			if (err) return console.error(err);
+			else {
+				res.redirect("/mcdone");
+			}
 			});
 		}
 	});
+});
+
+
+
+
+app.get("/mcdone", function(req, res) {
+    res.render("mcdone.ejs");
 });

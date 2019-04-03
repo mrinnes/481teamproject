@@ -59,7 +59,9 @@
 				
 							<% } %>
 							<div class="text-right">
+								<% if(currentUser && currentUser.isTeam){ %>
 								<input class="btn btn-primary" type="submit" value="Submit">
+								<% } %>
 							</div>
 						</form>
 			</div>
