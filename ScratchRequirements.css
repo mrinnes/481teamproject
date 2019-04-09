@@ -1,17 +1,17 @@
-.list-group {
+list-group {
   list-style: decimal inside;
 }
 
-.list-group-item {
+list-group-item {
   display: list-item;
 }
 
-.h1 {
+h1 {
   color: #FF0058;
   font-family: cursive;
 }
 
-.p {
+p {
   color: grey;
   font-style: italic;
 }
