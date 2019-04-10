@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" href="/style.css">
+		<script src="../jquery-3.3.1.min.js"></script>
+		<script src="../js/main.js"></script>
+	</head>
+
+	<body class="interface">
+    <% include ./header %>
+
+		<div class="wrapper">
+			<% include ./sidebar %>
+
+			<div id="main-content-area">
+				<div class="container">
+          <h2>Scratch Requirements</h2>
+
+					<% if(currentUser && currentUser.isAdmin){ %>
+
+					<form action="/scratchRequirements" method="POST">
+						<div class="form-group">
+							<label for="scratchRequirements">Edit Requirements Text:</label>
+							<textarea class="form-control" rows="5" id="scratchRequirements"
+                        name="scratchRequirementsText"><%= scratchReqmts %></textarea>
+						</div>
+
+						<div class="text-right my-4">
+							<button class="btn btn-primary" type="reset">Reset</button>
+							<button class="btn btn-primary" type="submit">Update</button>
+						</div>
+					</form>
+
+					<% } else { %>
+
+					<p class="my-4"> <%= scratchReqmts %> </p>
+
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

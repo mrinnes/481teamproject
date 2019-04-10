@@ -7,8 +7,9 @@
      LocalStrategy      = require("passport-local"),
      passportLocalMongoose = require("passport-local-mongoose"),
      User               = require("./models/Users"),
-     Team              = require("./models/Teams.js"),
+     Team               = require("./models/Teams.js"),
      Questions          = require("./models/MultiChoice"),
+     ScratchReqmts      = require("./models/ScratchReqmts"),
      router             = express.Router();
 
      app.use(express.static(__dirname + "/public"));
@@ -141,6 +142,32 @@ app.get("/examplemultiplechoice", function(req, res) {
   });
 });
 
+app.get("/scratchRequirements", function(req, res) {
+  ScratchReqmts.find({}, function(err, scratchReqmtsAdmin) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("scratchRequirements", {
+        scratchReqmts: scratchReqmtsAdmin[0].description
+      });
+    }
+  })
+});
+
+app.post("/scratchRequirements", function(req, res) {
+  var query = { "testID": "1" }; // hardcoded for now until Al implements capability for multiple tests
+  var update = { $set: { "description": req.body.scratchRequirementsText } };
+  var options = { "multi": true };
+
+  ScratchReqmts.updateOne(query, update, options, function(err) {
+    if (err) {
+      console.log(err)
+    } else {
+      res.redirect("/scratchRequirements");
+    }
+  });
+});
+
 app.post("/examplemultiplechoice", function(req, res) {
     var newQuestion = {
         ID: req.body.ID,
@@ -215,9 +242,6 @@ app.get("/Downloadcsv",function(req, res) {
   });
 });
 
-app.get("/scratchRequirementsAdmin", function(req, res) {
-  res.render("scratchRequirementsAdmin.ejs");
-});
 
 ///AUTH ROUTES
 
