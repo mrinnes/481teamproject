@@ -38,43 +38,12 @@ app.use(function(req, res, next) {
 });
 
 app.listen(process.env.PORT || 3000, process.env.IP, function() {
-    console.log("Icompute Server has Started");
+    console.log("iCompute server has started");
     open('http://localhost:3000');
 });
 
 app.get("/", function(req, res) {
     res.render("index.ejs");
-});
-
-app.get("/examplemultiplechoice", function(req, res) {
-  //Get all Data from Data base
-  Questions.find({}, function(err, allQuestions) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("examplemultiplechoice", { questions: allQuestions });
-    }
-  });
-});
-
-app.post("/examplemultiplechoice", function(req, res) {
-    var newQuestion = {
-        ID: req.body.ID,
-        question: req.body.question,
-        option_A: req.body.option_A,
-        option_B: req.body.option_B,
-        option_C: req.body.option_C,
-        option_D: req.body.option_D,
-        correct_option: req.body.correct_option
-    }
-
-    Questions.create(newQuestion, function(err, newCreated) {
-        if (err) {
-            console.log(err)
-        } else {
-            res.redirect("/examplemultiplechoice");
-        }
-    });
 });
 
 app.post("/exampleteam", function(req, res) {
@@ -125,18 +94,81 @@ app.get("/Questionnew",function(req, res) {
 
 //Addeding new GET function for adding team
 app.get("/Teamnew",function(req, res) {
-    res.render("Teamnew.ejs");
+  res.render("Teamnew.ejs");
+});
+
+
+
+
+
+
+app.post("/confirmDeleteQuestion", function(req, res) {
+  var questionID = req.query.questionID;
+  res.redirect('/examplemultiplechoice?deleteMCQuestion=' + questionID);
 });
 
 app.post("/deleteQuestion", function(req, res) {
-  Questions.deleteOne({ID:req.query.questionID}, function(err, db) {
-      if(err){
-          console.log(err);
-      }else{
-          console.log("Deleted: " + req.query.questionID);
+  var deleteMCQuestionConfirmed = req.body.deleteMCQuestionConfirmed;
+  var questionID = req.query.deleteQuestionID;
+
+  if (deleteMCQuestionConfirmed) {
+    Questions.deleteOne({ ID: questionID }, function(err, db) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Deleted: " + questionID);
       }
-  });
+    });
+  }
+
   res.redirect("/examplemultiplechoice");
+});
+
+app.get("/examplemultiplechoice", function(req, res) {
+  var deleteQuestionID;
+  var confirmDeleteModal = false;
+
+  if (req && req.query && req.query.deleteMCQuestion) {
+    deleteQuestionID = req.query.deleteMCQuestion;
+    confirmDeleteModal = true;
+  }
+
+  Questions.find({}, function(err, allQuestions) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("examplemultiplechoice", {
+        questions: allQuestions,
+        confirmDeleteModal: confirmDeleteModal,
+        deleteQuestionID: deleteQuestionID
+      });
+    }
+  });
+});
+
+
+
+
+
+
+app.post("/examplemultiplechoice", function(req, res) {
+    var newQuestion = {
+        ID: req.body.ID,
+        question: req.body.question,
+        option_A: req.body.option_A,
+        option_B: req.body.option_B,
+        option_C: req.body.option_C,
+        option_D: req.body.option_D,
+        correct_option: req.body.correct_option
+    }
+
+    Questions.create(newQuestion, function(err, newCreated) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect("/examplemultiplechoice");
+        }
+    });
 });
 
 app.post("/confirmDeleteTeam", function(req, res) {
@@ -171,15 +203,15 @@ app.get("/displayteams",function(req, res) {
   }
 
   Team.find({}, function(err, allTeams) {
-      if (err) {
-          console.log(err);
-      } else {
-          res.render("displayteams.ejs", {
-            teams: allTeams,
-            confirmDeleteModal: confirmDeleteModal,
-            teamName: teamName
-          });
-      }
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("displayteams.ejs", {
+        teams: allTeams,
+        confirmDeleteModal: confirmDeleteModal,
+        teamName: teamName
+      });
+    }
   });
 });
 
