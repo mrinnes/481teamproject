@@ -37,8 +37,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-
-
 app.listen(process.env.PORT || 3000, process.env.IP, function() {
     console.log("Icompute Server has Started");
     open('http://localhost:3000');
@@ -68,7 +66,6 @@ app.post("/examplemultiplechoice", function(req, res) {
         option_C: req.body.option_C,
         option_D: req.body.option_D,
         correct_option: req.body.correct_option
-
     }
 
     Questions.create(newQuestion, function(err, newCreated) {
@@ -142,34 +139,56 @@ app.post("/deleteQuestion", function(req, res) {
   res.redirect("/examplemultiplechoice");
 });
 
+app.post("/confirmDeleteTeam", function(req, res) {
+  var teamName = req.query.teamName;
+  res.redirect('/displayteams?deleteTeam=' + teamName);
+});
+
 app.post("/deleteTeam", function(req, res) {
-  Team.deleteOne({name:req.query.name}, function(err, db) {
-      if(err){
-          console.log(err);
-      }else{
-          console.log("Deleted: " + req.query.name);
+  var deleteTeamConfirmed = req.body.deleteTeamConfirmed;
+  var teamName = req.query.teamName;
+
+  if (deleteTeamConfirmed) {
+    Team.deleteOne({ name: teamName }, function(err, db) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Deleted: " + teamName);
       }
-  });
+    });
+  }
+
   res.redirect("/displayteams");
 });
 
-//Addeding new GET function for adding team
+app.get("/displayteams",function(req, res) {
+  var teamName;
+  var confirmDeleteModal = false;
+
+  if (req && req.query && req.query.deleteTeam) {
+    teamName = req.query.deleteTeam;
+    confirmDeleteModal = true;
+  }
+
+  Team.find({}, function(err, allTeams) {
+      if (err) {
+          console.log(err);
+      } else {
+          res.render("displayteams.ejs", {
+            teams: allTeams,
+            confirmDeleteModal: confirmDeleteModal,
+            teamName: teamName
+          });
+      }
+  });
+});
+
 app.get("/Downloadcsv",function(req, res) {
   Team.find({}, function(err, allTeams) {
       if (err) {
           console.log(err);
       } else {
           res.render("downloadcsv.ejs", { teams: allTeams });
-      }
-  });
-});
-
-app.get("/displayteams",function(req, res) {
-  Team.find({}, function(err, allTeams) {
-      if (err) {
-          console.log(err);
-      } else {
-          res.render("displayteams.ejs", { teams: allTeams });
       }
   });
 });
@@ -259,20 +278,20 @@ app.post("/submitQuestion", function(req, res) {
   var answers = Object.values(req.body);
   //console.log('answers: ', answers);
 
-  
+
   //grab the questions
   Questions.find({}, function(err, allQuestions) {
     if (err) {
-		console.log(err);} 
+		console.log(err);}
 	else {
 		questions = allQuestions;
 		counter = 0;
-		
+
 		for (i = 0; i < allQuestions.length; i++) {
 			if (allQuestions[i].correct_option === answers[i]) {
 				console.log(allQuestions[i].ID, ' is correct');
-				counter++; 
-				} 
+				counter++;
+				}
 			else {
 				//console.log(allQuestions[i].ID, ' is incorrect');
 				}
@@ -283,7 +302,7 @@ app.post("/submitQuestion", function(req, res) {
 		var query = {"name": res.locals.currentUser.username};
 		var update = { "$set": { "MC_Grade": counter }};
 		var options = { "multi": true };
-		
+
 		console.log(query);
 		Team.updateOne(query, update, options, function (err) {
 			if (err) return console.error(err);
@@ -294,9 +313,6 @@ app.post("/submitQuestion", function(req, res) {
 		}
 	});
 });
-
-
-
 
 app.get("/mcdone", function(req, res) {
     res.render("mcdone.ejs");
