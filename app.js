@@ -97,11 +97,6 @@ app.get("/Teamnew",function(req, res) {
   res.render("Teamnew.ejs");
 });
 
-
-
-
-
-
 app.post("/confirmDeleteQuestion", function(req, res) {
   var questionID = req.query.questionID;
   res.redirect('/examplemultiplechoice?deleteMCQuestion=' + questionID);
@@ -145,11 +140,6 @@ app.get("/examplemultiplechoice", function(req, res) {
     }
   });
 });
-
-
-
-
-
 
 app.post("/examplemultiplechoice", function(req, res) {
     var newQuestion = {
@@ -225,6 +215,9 @@ app.get("/Downloadcsv",function(req, res) {
   });
 });
 
+app.get("/scratchRequirementsAdmin", function(req, res) {
+  res.render("scratchRequirementsAdmin.ejs");
+});
 
 ///AUTH ROUTES
 
