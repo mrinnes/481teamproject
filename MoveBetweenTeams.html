@@ -6,32 +6,29 @@
 
 <body>
 
-<h1>Team Grade</h1>
+<h1>Team Grades</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Team Name</th>
-      <th scope="col">Team Grade</th>
-      <th scope="col">Comments</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<ul class="nav nav-tabs">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+    role="button" aria-haspopup="true" aria-expanded="false">Team Name</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Team 1</a>
+      <a class="dropdown-item" href="#">Team 2</a>
+      <a class="dropdown-item" href="#">Team 3</a>
+      <a class="dropdown-item" href="#">Team 4</a>
+      <a class="dropdown-item" href="#">Team 5</a>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Requirements Page</a>
+  </li>
+</ul>
 
-<button onclick="myFunction()">Next team</button>
-
-<script>
-function myFunction() {
-  location.replace("file:///Users/davidb14/icompute/481teamproject/MBT2.html")
-}
-</script>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-Team Name" role="tabpanel"
+  aria-labelledby="pills-teamName-tab">...</div>
+</div>
 
 </body>
 </html>
