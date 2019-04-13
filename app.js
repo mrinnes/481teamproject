@@ -147,9 +147,15 @@ app.get("/scratchRequirements", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("scratchRequirements", {
-        scratchReqmts: scratchReqmtsAdmin[0].description
-      });
+      if (scratchReqmtsAdmin && scratchReqmtsAdmin[0] && scratchReqmtsAdmin[0].description) {
+        res.render("scratchRequirements", {
+          scratchReqmts: scratchReqmtsAdmin[0].description
+        });
+      } else {
+        res.render("scratchRequirements", {
+          scratchReqmts: ""
+        });
+      }
     }
   })
 });
