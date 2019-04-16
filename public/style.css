@@ -143,23 +143,31 @@ header {
 		padding-right: 20px;
 	}
 
-<<<<<<< HEAD
 form label, form button {
 	margin-top: 15px;
 }
 
-=======
->>>>>>> deleteQuestion2
+.dm-uploader {
+	border: 0.25rem dashed #A5A5C7;
+	text-align: center;
+}
+
+.dm-uploader.active {
+	border-color: red;
+	border-style: solid;
+}
+
 @media (max-width: 768px) {
 	header ul {
 		display: none;
 	}
+}
 
-    #sidebar {
+    /* #sidebar {
         margin-left: -250px;
     }
 
     #sidebar .hide {
         margin-left: 0;
-    }
+    } */
 }

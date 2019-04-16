@@ -15,6 +15,8 @@
      app.use(express.static(__dirname + "/public"));
      app.use(express.static(__dirname + "/views"));
      app.use(express.static(__dirname + "/models"));
+     app.use(express.static(__dirname + "/js"));
+     app.use(express.static(__dirname + "/node_modules"));
 
      mongoose.connect("mongodb://localhost/Icompute", { useNewUrlParser: true });
      app.use(bodyParser.urlencoded( { extended: true } ));
