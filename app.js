@@ -149,6 +149,7 @@ app.get("/scratchRequirements", function(req, res) {
     } else {
       console.log("1: " + scratchReqmtsAdmin);
       console.log("2: " + scratchReqmtsAdmin[0]);
+	  console.log(req);
       if (scratchReqmtsAdmin && scratchReqmtsAdmin[0] && scratchReqmtsAdmin[0].description) {
         res.render("scratchRequirements", {
           scratchReqmts: scratchReqmtsAdmin[0].description
@@ -168,19 +169,22 @@ app.post("/scratchRequirements", function(req, res) {
   var query = { "testID": "1" }; // hardcoded for now until Al implements capability for multiple tests
   var update = { "description": req.body.scratchRequirementsText};
   var options = { "multi": true };
+  var img1 = {"image1":req.body.scratchIMG1};
+  var img2 = {"image2":req.body.scratchIMG2};
+  var img3 = {"image3":req.body.scratchIMG3};
 
   ScratchReqmts.findOne({ "testID": "1" },(function(err, count) {
     if (err) {
       console.log(err);
     } else {
       if (count == null) {
-        ScratchReqmts.create(query, update, options, function(err) {
+        ScratchReqmts.create(query, update, options, img1, img2, img3, function(err) {
           if (err) {
             console.log(err);
           }
         });
       } else {
-        ScratchReqmts.updateOne(query, update, options, function(err) {
+        ScratchReqmts.updateOne(query, update, options, img1, img2, img3, function(err) {
           if (err) {
             console.log(err);
           }

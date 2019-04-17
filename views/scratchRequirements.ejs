@@ -19,11 +19,25 @@
 
 					<% if(currentUser && currentUser.isAdmin){ %>
 
-					<form action="/scratchRequirements" method="POST">
+					<form action="/scratchRequirements" method="POST" enctype="multipart/form-data>
 						<div class="form-group">
 							<label for="scratchRequirements">Edit Requirements Text:</label>
 							<textarea class="form-control" rows="5" id="scratchRequirements"
                         name="scratchRequirementsText"><%= scratchReqmts %></textarea>
+						</div>
+						<div class="form-group">
+							<label>Image 1:</label>
+							<button class="btn btn-primary" type="image1" name="scratchIMG1">
+							<input id='image1' type='file'></button>
+							<br>
+							<label>Image 2:</label>
+							<button class="btn btn-primary" type="image2" name="scratchIMG2">
+							<input id='image2' type='file'></button>
+							<br>
+							<label>Image 3:</label>
+							<button class="btn btn-primary" type="image3" name="scratchIMG3">
+							<input id='image3' type='file'></button>
+							<br>
 						</div>
 
 						<div class="text-right my-4">
