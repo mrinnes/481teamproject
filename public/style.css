@@ -160,15 +160,16 @@ form label, form button {
 }
 
 @media (max-width: 768px) {
-	header ul {
-		display: none;
+  #sidebar {
+      margin-left: -250px;
+  }
+
+  #sidebar.hide {
+      margin-left: 0;
+			width: 100vw;
+  }
+
+	#sidebar.hide + #main-content-area {
+		margin-right: -100vw;
 	}
-
-    #sidebar {
-        margin-left: -250px;
-    }
-
-    #sidebar .hide {
-        margin-left: 0;
-    }
 }
