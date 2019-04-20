@@ -27,24 +27,26 @@
 						</div>
 						<div class="form-group">
 							<label>Image 1:</label>
-							<button class="btn btn-primary" type="image1" name="scratchIMG1">
-							<input id='image1' type='file'></button>
+							 
+							<input id='scratchIMG1' name='scratchIMG1' type='file'>
 							<br>
 							<label>Image 2:</label>
-							<button class="btn btn-primary" type="image2" name="scratchIMG2">
-							<input id='image2' type='file'></button>
+							<input id='scratchIMG2' name='scratchIMG2' type='file'>
 							<br>
 							<label>Image 3:</label>
-							<button class="btn btn-primary" type="image3" name="scratchIMG3">
-							<input id='image3' type='file'></button>
+							<input id='scratchIMG3' name='scratchIMG3' type='file'>
 							<br>
 						</div>
-
 						<div class="text-right my-4">
 							<button class="btn btn-primary" type="reset">Reset</button>
 							<button class="btn btn-primary" type="submit">Update</button>
 						</div>
 					</form>
+
+					<div class="col-md-4">
+					<form method="GET" action="/scratchRequirements">
+					</form>
+					</div>
 
 					<% } else { %>
 

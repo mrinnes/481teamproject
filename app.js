@@ -149,10 +149,10 @@ app.get("/scratchRequirements", function(req, res) {
     } else {
       console.log("1: " + scratchReqmtsAdmin);
       console.log("2: " + scratchReqmtsAdmin[0]);
-	  console.log(req);
       if (scratchReqmtsAdmin && scratchReqmtsAdmin[0] && scratchReqmtsAdmin[0].description) {
         res.render("scratchRequirements", {
-          scratchReqmts: scratchReqmtsAdmin[0].description
+          scratchReqmts: scratchReqmtsAdmin[0].description,
+		  scratchReqmts: scratchReqmtsAdmin[0].image1
         });
         console.log("loaded successfully");
       } else {
