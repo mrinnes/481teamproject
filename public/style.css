@@ -141,6 +141,10 @@ header {
 		width: auto;
 	}
 
+	#main-content-area::-webkit-scrollbar {
+		display: none;
+	}
+
 .question {
 	padding: 30px 5px;
 	border-top: 1px solid #ddd;
