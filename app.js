@@ -147,14 +147,18 @@ app.get("/scratchRequirements", function(req, res) {
     if (err) {
       console.log(err);
     } else {
+      console.log("1: " + scratchReqmtsAdmin);
+      console.log("2: " + scratchReqmtsAdmin[0]);
       if (scratchReqmtsAdmin && scratchReqmtsAdmin[0] && scratchReqmtsAdmin[0].description) {
         res.render("scratchRequirements", {
           scratchReqmts: scratchReqmtsAdmin[0].description
         });
+        console.log("loaded successfully");
       } else {
         res.render("scratchRequirements", {
           scratchReqmts: ""
         });
+        console.log("loaded empty");
       }
     }
   })
@@ -162,16 +166,29 @@ app.get("/scratchRequirements", function(req, res) {
 
 app.post("/scratchRequirements", function(req, res) {
   var query = { "testID": "1" }; // hardcoded for now until Al implements capability for multiple tests
-  var update = { $set: { "description": req.body.scratchRequirementsText } };
+  var update = { "description": req.body.scratchRequirementsText};
   var options = { "multi": true };
 
-  ScratchReqmts.updateOne(query, update, options, function(err) {
+  ScratchReqmts.findOne({ "testID": "1" },(function(err, count) {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
+      if (count == null) {
+        ScratchReqmts.create(query, update, options, function(err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+      } else {
+        ScratchReqmts.updateOne(query, update, options, function(err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
       res.redirect("/scratchRequirements");
     }
-  });
+  }));
 });
 
 app.post("/examplemultiplechoice", function(req, res) {
