@@ -87,6 +87,7 @@ header {
 			right: 57px;
 			top: 15px;
 		}
+
 #sidebar {
 	background-color: #f8f9fa;
 	border-right: 2px solid #dfe0e1;
@@ -96,6 +97,10 @@ header {
 	transition: all 0.3s;
 	width: 250px;
 }
+
+	#sidebar::-webkit-scrollbar {
+		display: none;
+	}
 
 	#sidebar.hide {
 		margin-left: -250px;
