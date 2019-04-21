@@ -1,4 +1,6 @@
  var express            = require("express"),
+     formidable         = require("formidable"),
+     fs                 = require("fs-extra"),
      app                = express(),
      bodyParser         = require("body-parser"),
      mongoose           = require("mongoose"),
@@ -10,10 +12,13 @@
      Team               = require("./models/Teams.js"),
      Questions          = require("./models/MultiChoice"),
      ScratchReqmts      = require("./models/ScratchReqmts"),
-     router             = express.Router();
+     router             = express.Router(),
+     util               = require("util");
+
 
      app.use(express.static(__dirname + "/public"));
      app.use(express.static(__dirname + "/views"));
+     app.use(express.static(__dirname + "/uploads"));
      app.use(express.static(__dirname + "/models"));
      app.use(express.static(__dirname + "/js"));
      app.use(express.static(__dirname + "/node_modules"));
@@ -39,6 +44,9 @@ app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     next();
 });
+
+
+
 
 app.listen(process.env.PORT || 3000, process.env.IP, function() {
     console.log("iCompute server has started");
@@ -145,25 +153,42 @@ app.get("/examplemultiplechoice", function(req, res) {
 });
 
 app.get("/scratchRequirements", function(req, res) {
+  var deleteRequirementID;
+  var confirmDeleteModal = false;
+
+  if (req && req.query && req.query.deleteRequirement) {
+    deleteRequirementID = req.query.deleteRequirement;
+    confirmDeleteModal = true;
+  }
+
   ScratchReqmts.find({}, function(err, scratchReqmtsAdmin) {
     if (err) {
       console.log(err);
     } else {
-      console.log("1: " + scratchReqmtsAdmin);
-      console.log("2: " + scratchReqmtsAdmin[0]);
+      if (scratchReqmtsAdmin && scratchReqmtsAdmin[0] && scratchReqmtsAdmin[0].images) {
+        var imageArray = scratchReqmtsAdmin[0].images.split(',');
+        var pop = imageArray.pop();
+      } else {
+        var imageArray = [];
+      }
+
       if (scratchReqmtsAdmin && scratchReqmtsAdmin[0] && scratchReqmtsAdmin[0].description) {
         res.render("scratchRequirements", {
-          scratchReqmts: scratchReqmtsAdmin[0].description
+          scratchReqmts: scratchReqmtsAdmin[0].description,
+          images: imageArray,
+          confirmDeleteModal: confirmDeleteModal,
+          deleteRequirementID: deleteRequirementID
         });
-        console.log("loaded successfully");
       } else {
         res.render("scratchRequirements", {
-          scratchReqmts: ""
+          scratchReqmts: "",
+          images: imageArray,
+          confirmDeleteModal: confirmDeleteModal,
+          deleteRequirementID: deleteRequirementID
         });
-        console.log("loaded empty");
       }
     }
-  })
+  });
 });
 
 app.post("/scratchRequirements", function(req, res) {
@@ -176,7 +201,14 @@ app.post("/scratchRequirements", function(req, res) {
       console.log(err);
     } else {
       if (count == null) {
-        ScratchReqmts.create(query, update, options, function(err) {
+        var newScratchReqmts = {
+          testID: "1",
+          description: req.body.scratchRequirementsText,
+          images: "",
+          multi: true
+        };
+
+        ScratchReqmts.create(newScratchReqmts, function(err) {
           if (err) {
             console.log(err);
           }
@@ -191,6 +223,117 @@ app.post("/scratchRequirements", function(req, res) {
       res.redirect("/scratchRequirements");
     }
   }));
+});
+
+
+app.post("/scratchRequirementsUpload", function(req, res) {
+  // ScratchReqmts.collection.deleteMany({});
+  var form = new formidable.IncomingForm();
+
+  new formidable.IncomingForm().parse(req)
+    .on('fileBegin', (name, file) => {
+      form.on('fileBegin', (name, file) => {
+        file.path = __dirname + '/uploads/' + file.name;
+      })
+    })
+
+    .on('end', function(fields, files) {
+        var temp_path = this.openedFiles[0].path;
+        var file_name = this.openedFiles[0].name;
+        var new_location = __dirname + '/uploads/';
+
+        var fileType = file_name.split('.').pop();
+        if(fileType == 'jpg' || fileType == 'png' || fileType == 'jpeg' ) {
+          fs.copy(temp_path, new_location + file_name, function(err) {
+              if (err) {
+                  console.error(err);
+              } else {
+                //Variables
+                var query = { "testID": "1" }; // hardcoded for now until Al implements capability for multiple tests
+                var options = { "multi": true };
+
+                //Check to see if database exists
+                ScratchReqmts.findOne({ "testID": "1" },(function(err, count) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    if (count == null) { //testID not found
+                      var newScratchReqmts = {
+                        testID: "1",
+                        description: "",
+                        images: (file_name + ","),
+                        multi: true
+                      };
+
+                      ScratchReqmts.create(newScratchReqmts, function(err) {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+                    } else { //If testID was found
+                      var image_name = { "images": (count.images + file_name + ",") };
+
+                      ScratchReqmts.updateOne(query, image_name, options, function(err) {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+                    }
+                  }
+                }));
+                  res.redirect("scratchRequirements");
+              }
+          });
+        } else {
+          console.log("Unacceptable file type.");
+          res.redirect("scratchRequirements");
+        }
+    });
+});
+
+app.post("/confirmDeleteRequirement", function(req, res) {
+  var requirementsID = req.query.requirementID;
+  res.redirect('/scratchRequirements?deleteRequirement=' + requirementsID);
+});
+
+app.post("/deleteRequirement", function(req, res) {
+  var deleteRequirementConfirmed = req.body.deleteRequirementConfirmed;
+  var requirementID = req.query.deleteRequirementID;
+  var testID = "1";
+
+  if (deleteRequirementConfirmed) {
+    ScratchReqmts.findOne({ "testID": testID },(function(err, count) {
+      var imageArray = count.images.split(',');
+      var pop = imageArray.pop();
+      var removed = imageArray[requirementID];
+      imageArray.splice(requirementID, 1);
+
+      var duplicate = false;
+      for (i=0;i<imageArray.length;i++) {
+        if (imageArray[i] == removed) {
+          duplicate = true;
+        }
+      }
+
+      if (!duplicate) {
+        var filePath = __dirname + '/uploads/' + removed;
+        fs.unlinkSync(filePath);
+      }
+
+      if (imageArray.length != 0) {
+        var imageArrayFinal = imageArray.join() + ",";
+      } else {
+        var imageArrayFinal = "";
+      }
+
+      ScratchReqmts.updateOne({ images: imageArrayFinal }, function(err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }));
+  }
+  res.redirect("/scratchRequirements");
 });
 
 app.post("/examplemultiplechoice", function(req, res) {
