@@ -3,11 +3,34 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="/bootstrap.min.css">
 		<link rel="stylesheet" href="/style.css">
+		<link href="/dm-file-uploader/dist/css/jquery.dm-uploader.min.css" rel="stylesheet">
 		<script src="../jquery-3.3.1.min.js"></script>
-		<script src="../js/main.js"></script>
+		<script src="../main.js"></script>
+		<script src="/dm-file-uploader/dist/js/jquery.dm-uploader.min.js"></script>
 	</head>
 
 	<body class="interface">
+
+		<% if (confirmDeleteModal) { %>
+
+    <div class="modal-overlay">
+			<div class="modal-container shadow">
+				<form action="/deleteRequirement?deleteRequirementID=<%=deleteRequirementID%>" method="POST">
+          <h4>Please confirm deletion of image <%= deleteRequirementID %></h4>
+          <div class="row text-center my-4">
+            <div class="col-md-6">
+              <input class="btn btn-primary" type="submit" value="Cancel">
+            </div>
+            <div class="col-md-6">
+              <input class="btn btn-primary" type="submit" name="deleteRequirementConfirmed" value="Delete">
+            </div>
+          </div>
+				</form>
+			</div>
+		</div>
+
+    <% } %>
+
     <% include ./header %>
 
 		<div class="wrapper">
@@ -31,11 +54,65 @@
 							<button class="btn btn-primary" type="submit">Update</button>
 						</div>
 					</form>
+					<p></p>
+
+					<label>Upload Images:</label>
+					<form action="/scratchRequirementsUpload" enctype="multipart/form-data" method="POST">
+						<div class="row">
+							<div class="col-md-6 col-sm-12 row-md-6">
+			          <div class="dm-uploader p-5">
+									<h3 class="mb-5 mt-5 text-muted">Upload a <b>.jpg</b>, <b>.png</b>, or <b>.jpeg</b> file.</h3>
+			            <div>
+										<input type="file" name="scratchFile" />
+			            </div>
+									<button type="submit" class="btn btn-primary">Upload</button>
+			          </div>
+							</div>
+		        </div>
+					<p></p>
+
+					<div id="uploaded-images">
+						<% if (images.length != undefined) {
+								for (i=0; i<images.length; i++) { %>
+									<image class="scratchImg" src="images/<%=images[i] %>" />
+									<input type="submit" class="btn btn-primary" value="Delete"
+												 formaction="/confirmDeleteRequirement?requirementID=<%=i %>">
+									<p></p>
+							<% }
+							} %>
+					</div>
+					</form>
 
 					<% } else { %>
 
 					<p class="my-4"> <%= scratchReqmts %> </p>
+					<p></p>
 
+					<div id="uploaded-images">
+						<% if (images.length != undefined) {
+								for (i=0; i<images.length; i++) { %>
+									<image class="scratchImg" src="images/<%=images[i] %>" />
+									<p></p>
+							<% }
+							} %>
+					</div>
+
+					<label>Upload Scratch Files:</label>
+					<form action="/scratchFileUpload" enctype="multipart/form-data" method="POST">
+						<div class="row">
+							<div class="col-md-6 col-sm-12 row-md-6">
+								<div class="dm-uploader p-5">
+									<p class="my-4"> <%if (scratchFile != undefined) { %>Your file <b><%= scratchFile %></b> is uploaded.<% } %> </p>
+									<h3 class="mb-5 mt-5 text-muted">Upload a <b>.sb</b> or <b>.sb2</b> file.</h3>
+									<div>
+										<input type="file" name="scratchSBFile" />
+									</div>
+									<button type="submit" class="btn btn-primary">Upload</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<p></p>
 					<% } %>
 				</div>
 			</div>   
