@@ -154,9 +154,24 @@ header {
 		padding-right: 20px;
 	}
 
-
 form label, form button {
 	margin-top: 15px;
+}
+
+.dm-uploader {
+	border: 0.25rem solid #000000;
+	text-align: center;
+}
+
+	.dm-uploader.active {
+		border-color: red;
+		border-style: solid;
+	}
+
+.scratchIMG {
+	border:1px solid #021a40;
+	max-height: 500px;
+	max-width: 50%;
 }
 
 @media (max-width: 768px) {
