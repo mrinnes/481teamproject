@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" href="/style.css">
+		<script src="../jquery-3.3.1.min.js"></script>
+		<script src="../js/main.js"></script>
+	</head>
+
+	<body class="interface">
+    <% include ./header %>
+
+		<div class="wrapper">
+			<% include ./sidebar %>
+
+			<div id="main-content-area">
+				<div class="container">
+					<ul class="nav nav-tabs">
+						<% var selectedTeam = teams[0]; %>
+						
+          				<% for (i=0; i<teams.length; i++) {
+          					if(teams[i].name) {
+          				%>
+          					<li>
+          						<a class="nav-link" id="nav-link-<%=i%>" href="#"
+          							onclick="$('.nav-link').removeClass('active'); $(this).addClass('active'); <% selectTeam(i) %>;">
+          					  		<%= teams[i].name; %>	
+          						</a>
+          					</li>
+          				<% } } %>
+          				<script>
+          					$('#nav-link-0').addClass('active');
+          					
+          					<% function selectTeam(teamNum) {
+          						selectedTeam = teams[teamNum];
+          					   } %>
+          				</script>
+ 					</ul>
+
+          			<h2>Scratch Grading</h2>
+					
+					<form action="/enterScratchGrade" method="POST">
+						<div class="form-group">
+						<p style="color: red"> <%= selectedTeam.name %>  </p>
+						
+							<label for="enterScratchGrade">Enter grade for scratch:</label>
+
+							<input class="form-control" style="max-width: 50px" id="scratchGrade"
+                        name="scratchGradeText" value="<%= scratchGrade %>" />
+
+							</div>
+
+						<div class="text-left my-4">
+							<button class="btn btn-primary" type="reset">Reset</button>
+							<button class="btn btn-primary" type="submit">Update</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
