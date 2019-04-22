@@ -9,7 +9,7 @@
      User               = require("./models/Users"),
      Team               = require("./models/Teams.js"),
      Questions          = require("./models/MultiChoice"),
-     ScratchReqmts      = require("./models/ScratchReqmts"),
+     //ScratchReqmts      = require("./models/ScratchReqmts"),
      ScratchGrade		= require("./models/ScratchGrade"),
      router             = express.Router();
 
@@ -155,9 +155,9 @@ app.get("/enterScratchGrade", function(req, res) {
   		teams = result;
   	}
   });
-    
+
   var query = { "testID": "1" }; // hardcoded for now until Al implements capability for multiple tests
-  
+
   ScratchGrade.find(query, function(err, scratchReqmtsAdmin) {
     if (err) {
       console.log(err);
