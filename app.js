@@ -1,6 +1,7 @@
  var express            = require("express"),
      formidable         = require("formidable"),
      fs                 = require("fs-extra"),
+     path               = require("path"),
      app                = express(),
      bodyParser         = require("body-parser"),
      mongoose           = require("mongoose"),
@@ -487,6 +488,29 @@ app.get("/Downloadcsv",function(req, res) {
   });
 });
 
+app.get("/downloadscratch",function(req, res) {
+  var teamName;
+  var confirmDeleteModal = false;
+
+  if (req && req.query && req.query.deleteTeam) {
+    teamName = req.query.deleteTeam;
+    confirmDeleteModal = true;
+  }
+
+  ScratchReqmts.findOne({ "testID": "1" },(function(err, count) {
+    if (err) {
+      console.log(err);
+    } else {
+      var scratchPath = path.join(__dirname, 'uploads', 'scratch_files', 'Team-' + '1', count.scratchFile);
+      var scratchString = fs.readFileSync(scratchPath, 'utf8');
+      console.log(scratchString);
+      res.render("downloadscratch.ejs", {
+        scratchFile: count.scratchFile,
+        scratchString: scratchString
+      });
+    }
+  }));
+});
 
 ///AUTH ROUTES
 
