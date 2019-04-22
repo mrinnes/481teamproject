@@ -2,16 +2,17 @@ var mongoose = require("mongoose");
 
 
 var TestSchema = new mongoose.Schema({
-	TeamIDkey: 		 String,
-	TestID:          String,
-    MC_Question:    String,
-    MC_AnswerA:      String,
-    MC_AnswerB:      String,
-    MC_AnswerC:      String,
-    MC_AnswerD:      String,
-    MC_Correct:       String   
+	TestID:            String, 
+    MC_Question1ID:    String,
+    MC_Question2ID:    String,
+    MC_Question3ID:    String,
+    MC_Question4ID:    String,
+    MC_Question5ID:    String,
+ Scratch_QuestionID:    String
+    
+      
     
 });
 
  
-module.exports=mongoose.model("Test", TestSchema) 
+module.exports=mongoose.model("Tests", TestSchema);

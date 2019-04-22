@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
-    <script src="../jquery-3.3.1.min.js"></script>
+    <script src="./jquery-3.3.1.min.js"></script>
     <script src="../js/main.js"></script>
   </head>
 
@@ -22,17 +22,20 @@
               <h5>Select user type:</h5>
 
               <label>
-                <input type="checkbox" id="option1A" name="isTeam" value="true" checked>
+                <input type="checkbox" id="option1A" name="isTeam" value="true" checked 
+					onclick="document.getElementById('option1B').checked = false; document.getElementById('option1C').checked = false;">
                 Team
               </label>
 
               <label>
-                <input type="checkbox" id="option1B" name="isGrader" value="true">
+                <input type="checkbox" id="option1B" name="isGrader" value="true"
+					onclick="document.getElementById('option1A').checked = false; document.getElementById('option1C').checked = false;">
                 Grader
               </label>
 
               <label>
-                <input type="checkbox" id="option1C" name="isAdmin" value="true">
+                <input type="checkbox" id="option1C" name="isAdmin" value="true"
+					onclick="document.getElementById('option1A').checked = false; document.getElementById('option1B').checked = false;">
                 Supervisor
               </label>
             </div>

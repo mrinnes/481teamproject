@@ -21,6 +21,27 @@
   </head>
 
   <body class="interface">
+
+    <% if (confirmDeleteModal) { %>
+
+    <div class="modal-overlay">
+			<div class="modal-container shadow">
+				<form action="/deleteTeam?teamName=<%=teamName%>" method="POST">
+          <h4>Please confirm deletion of <%= teamName %></h4>
+          <div class="row text-center my-4">
+            <div class="col-md-6">
+              <input class="btn btn-primary" type="submit" value="Cancel">
+            </div>
+            <div class="col-md-6">
+              <input class="btn btn-primary" type="submit" name="deleteTeamConfirmed" value="Delete">
+            </div>
+          </div>
+				</form>
+			</div>
+		</div>
+
+    <% } %>
+
     <% include ./header %>
 
     <div class="wrapper">
@@ -48,8 +69,10 @@
                   <td><%= teams[i].name %></td>
                   <td><%= teams[i].gradeLevel %>th Grade</td>
                   <td class="text-right"><% if (teams[i].final_grade != null) {%><%= teams[i].final_grade %> points<% }else{%>N/A<%}%></td>
-                  <form action="/deleteTeam" method="POST">
-                    <td class="text-right"><input type="submit" class="btn btn-primary" value="Delete" formaction="/deleteTeam?name=<%= teams[i].name %>"></td>
+                  <form action="/confirmDeleteTeam?teamName=<%= teams[i].name %>" method="POST">
+                    <td class="text-right">
+                      <input type="submit" class="btn btn-primary" value="Delete">
+                    </td>
                   </form>
                 </tr>
               <% } %>
@@ -61,6 +84,7 @@
     </div>
   </body>
 </html>
+
 <script>
   function downloadCSV() {
     var passedCSV = "<%= csv %>";
