@@ -804,14 +804,32 @@ function isLoggedIn(req, res, next) {
 }
 
 app.post("/submitQuestion", function(req, res) {
-  console.log('req: ', req.body);
+  console.log('req: ', req.body.option);
+  var count =0;
   var questions;
-  var answers = Object.values(req.body);
-  //console.log('answers: ', answers);
-
+  var an =  Object.values(req.body.option);
+  var an1 = Object.values(req.body.option1);
+  var an2 = Object.values(req.body.option2);
+  var an3 = Object.values(req.body.option3);
+  var an4 = Object.values(req.body.option4);
+  var Coption1=req.body.CAnswer1;
+  var Coption2=req.body.CAnswer2;
+  var Coption3=req.body.CAnswer3;
+  var Coption4=req.body.CAnswer4;
+  var Coption5=req.body.CAnswer5;
+  console.log(an);
+  console.log(an1);
+  console.log(an2);
+  console.log(an3);
+  console.log(an4);
+  console.log(Coption1);
+  console.log(Coption2);
+  console.log(Coption3);
+  console.log(Coption4);
+  console.log(Coption5);
 
   //grab the questions
-  Questions.find({}, function(err, allQuestions) {
+/*  Questions.find({}, function(err, allQuestions) {
     if (err) {
 		console.log(err);}
 	else {
@@ -819,6 +837,7 @@ app.post("/submitQuestion", function(req, res) {
 		counter = 0;
 
 		for (i = 0; i < allQuestions.length; i++) {
+
 			if (allQuestions[i].correct_option === answers[i]) {
 				console.log(allQuestions[i].ID, ' is correct');
 				counter++;
@@ -826,25 +845,39 @@ app.post("/submitQuestion", function(req, res) {
 			else {
 				//console.log(allQuestions[i].ID, ' is incorrect');
 				}
-			}
+			}*/
+    if(an==Coption1){
+      count=count+1;
+    }
+    if(an1==Coption2){
+      count=count+1;
+    }
+    if(an2==Coption3){
+      count=count+1;
+    }
+    if(an3==Coption4){
+      count=count+1;
+    }
+    if(an4==Coption5){
+      count=count+1;
+    }
 
-		console.log(counter + " correct answers");
+		console.log(count + " correct answers");
 		res.locals.currentUser = req.user;
 		var query = {"name": res.locals.currentUser.username};
-		var update = { "$set": { "MC_Grade": counter }};
+		var update = { "$set": { "MC_Grade": count }};
 		var options = { "multi": true };
 
 		console.log(query);
 		Team.updateOne(query, update, options, function (err) {
 			if (err) return console.error(err);
 			else {
-				res.redirect("/mcdone");
+				res.redirect("/index");
 			}
 			});
-		}
-	});
-});
+		});
 
-app.get("/mcdone", function(req, res) {
-    res.render("mcdone.ejs");
+
+app.get("/ExamScratch", function(req, res) {
+    res.render("ExamScratch.ejs");
 });

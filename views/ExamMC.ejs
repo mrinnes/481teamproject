@@ -21,142 +21,152 @@
 				<div class="container">
 			<h1>Select the Correct Multiple choice option and then when completed click submit</h1>
 			
-			<form action="/ExamMC" method="POST">
+			<form action="/submitQuestion" method="POST">
 				<div class="question">
 			<h4><%=Q1%></h4>
 			
 			<div class="checkbox">
 									<label>
-										<input type="radio" id="option1A" name="A1" value="A" checked>
+										<input type="radio" id="1A" name="option" value="A" checked>
 										<%= A1 %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1B" name="B1" value="B">
+									 <input type="radio" id="1B" name="option" value="B">
 										<%= B1  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1C" name="C1" value="C">
+										<input type="radio" id="1C" name="option" value="C">
 										<%= C1  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1D" name="D1" value="D">
+										<input type="radio" id="1D" name="option" value="D">
 											<%= D1  %>
 									</label>
+									
 								</div>
 							</div>
 								<h4><%=Q2%></h4>
 			<div class="question">
 			<div class="checkbox">
 									<label>
-										<input type="radio" id="option1A" name="A2" value="A" checked>
+										<input type="radio" id="2A" name="option1" value="A" checked>
 										<%= A2 %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1B" name="B2" value="B">
+										<input type="radio" id="2B" name="option1" value="B">
 										<%= B2  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1C" name="C2" value="C">
+										<input type="radio" id="2C" name="option1" value="C">
 										<%= C2  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1D" name="D2" value="D">
+										<input type="radio" id="2D" name="option1" value="D">
 											<%= D2  %>
 									</label>
+									
 								</div>
 							</div>
 								<h4><%=Q3%></h4>
 			<div class="question">
 			<div class="checkbox">
 									<label>
-										<input type="radio" id="option1A" name="A3" value="A" checked>
+										<input type="radio" id="3A" name="option2" value="A" checked>
 										<%= A3 %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1B" name="B3" value="B">
+										<input type="radio" id="3B" name="option2" value="B">
 										<%= B3  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1C" name="C3" value="C">
+										<input type="radio" id="3C" name="option2" value="C">
 										<%= C3  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1D" name="D3" value="D">
+										<input type="radio" id="3D" name="option2" value="D">
 											<%= D3  %>
 									</label>
+									
 								</div>
 							</div>
 								<h4><%=Q4%></h4>
 			<div class="question">
 			<div class="checkbox">
 									<label>
-										<input type="radio" id="option1A" name="A4" value="A" checked>
+										<input type="radio" id="4A" name="option3" value="A" checked>
 										<%= A4 %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1B" name="B4" value="B">
+										<input type="radio" id="4B" name="option3" value="B">
 										<%= B4  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1C" name="C4" value="C">
+										<input type="radio" id="4C" name="option3" value="C">
 										<%= C4  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1D" name="D4" value="D">
+										<input type="radio" id="4D" name="option3" value="D">
 											<%= D4  %>
 									</label>
+									
 								</div>
 							</div>
 								<h4><%=Q5%></h4>
 			<div class="question">
 			<div class="checkbox">
 									<label>
-										<input type="radio" id="option1A" name="A5" value="A" checked>
+										<input type="radio" id="5A" name="option4" value="A" checked>
 										<%= A5 %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1B" name="B5" value="B">
+										<input type="radio" id="5B" name="option4" value="B">
 										<%= B5  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1C" name="C5" value="C">
+										<input type="radio" id="5C" name="option4" value="C">
 										<%= C5  %>
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="radio" id="option1D" name="D5" value="D">
+										<input type="radio" id="5D" name="option4" value="D">
 											<%= D5  %>
 									</label>
+
 								</div>
+								       <input type="hidden" id="A1" name="CAnswer1" value="<%=Answer1%>" >
+			                           <input type="hidden" id="A2" name="CAnswer2" value="<%=Answer2%>" >
+			                           <input type="hidden" id="A3" name="CAnswer3" value="<%=Answer3%>" >
+		                               <input type="hidden" id="A4" name="CAnswer4" value="<%=Answer4%>" >
+			                           <input type="hidden" id="A5" name="CAnswer5" value="<%=Answer5%>" >
 								<input class="btn btn-primary" type="submit" value="Submit">
 							</div>
 						</form>
