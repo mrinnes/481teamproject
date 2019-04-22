@@ -212,6 +212,7 @@ app.post("/scratchRequirements", function(req, res) {
         var newScratchReqmts = {
           testID: "1",
           description: req.body.scratchRequirementsText,
+          images: "",
           multi: true
         };
 
@@ -267,6 +268,7 @@ app.post("/scratchRequirementsUpload", function(req, res) {
                     if (count == null) { //testID not found
                       var newScratchReqmts = {
                         testID: "1",
+                        description: "",
                         images: (file_name + ","),
                         multi: true
                       };
