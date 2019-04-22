@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="../jquery-3.3.1.min.js"></script>
+    <script src="../main.js"></script>
+
+  </head>
+
+  <body class="interface">
+
+    <% include ./header %>
+
+    <div class="wrapper">
+      <% include ./sidebar %>
+
+      <div id="main-content-area">
+      <div class="container">
+          <h2>
+            Download Scratch File
+          </h2>
+          <p></p>
+          <button class="btn btn-primary" onclick="downloadScratch()">Download Scratch</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  function downloadScratch() {
+    var scratchDownload = "<%= scratchFile %>";
+    console.log(scratchDownload);
+    var hiddenElement = document.createElement("a");
+    hiddenElement.download = (scratchDownload);
+    hiddenElement.href = ("../scratch_files/" + "Team-" + "1" + "/" + scratchDownload);
+    document.body.appendChild(hiddenElement);
+    hiddenElement.click();
+  }
+</script>
