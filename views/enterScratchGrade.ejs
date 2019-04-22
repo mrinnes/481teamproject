@@ -17,32 +17,28 @@
 				<div class="container">
 					<ul class="nav nav-tabs">
 						<% var selectedTeam = teams[0]; %>
-						
+
           				<% for (i=0; i<teams.length; i++) {
-          					if(teams[i].name) {
+          					//if(teams[i].name) {
           				%>
           					<li>
           						<a class="nav-link" id="nav-link-<%=i%>" href="#"
-          							onclick="$('.nav-link').removeClass('active'); $(this).addClass('active'); <% selectTeam(i) %>;">
-          					  		<%= teams[i].name; %>	
+          							onclick="$('.nav-link').removeClass('active'); $(this).addClass('active');">
+          					  		<%= teams[i].name; %>
           						</a>
           					</li>
-          				<% } } %>
+          				<% } //} %>
           				<script>
           					$('#nav-link-0').addClass('active');
-          					
-          					<% function selectTeam(teamNum) {
-          						selectedTeam = teams[teamNum];
-          					   } %>
           				</script>
  					</ul>
 
           			<h2>Scratch Grading</h2>
-					
+
 					<form action="/enterScratchGrade" method="POST">
 						<div class="form-group">
-						<p style="color: red"> <%= selectedTeam.name %>  </p>
-						
+						<p style="color: red"> <%= //selectedTeam.name || selectedTeam._id %>  </p>
+
 							<label for="enterScratchGrade">Enter grade for scratch:</label>
 
 							<input class="form-control" style="max-width: 50px" id="scratchGrade"

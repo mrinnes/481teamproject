@@ -173,12 +173,16 @@ app.get("/enterScratchGrade", function(req, res) {
       console.log("2: " + scratchReqmtsAdmin[0]);
       if (scratchReqmtsAdmin && scratchReqmtsAdmin[0] && scratchReqmtsAdmin[0].grade) {
         console.log("ScratchGrade: " , scratchReqmtsAdmin[0].grade);
+
+
         res.render("enterScratchGrade.ejs", {
           scratchGrade: scratchReqmtsAdmin[0].grade,
           teams: teams
         });
         console.log("loaded successfully");
       } else {
+        console.log('howdy!!!!');
+
         res.render("enterScratchGrade.ejs", {
           scratchGrade: "",
           teams: []
@@ -296,7 +300,13 @@ app.post("/deleteTeam", function(req, res) {
 
   if (deleteTeamConfirmed) {
     Team.deleteOne({ name: teamName }, function(err, db) {
-  });
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Deleted: " + teamName);
+      }
+    });
+  }
 });
 
 app.get("/scratchRequirements", function(req, res) {
